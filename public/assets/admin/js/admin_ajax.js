@@ -56,7 +56,7 @@ function deleteCategory(ev) {
 }
 // Show Categories
 // * In showTables.js File 
-//
+
 function editCategoryStatus(ev) {
     ev.preventDefault();
     let element = ev.currentTarget;
