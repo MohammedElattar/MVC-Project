@@ -1,0 +1,59 @@
+# No we gonna talk about .htaccess file that used to configure our apache server
+
+# There are some rules we should know in htacces file that are standard in many commands
+
+# First , we use - symbol to deny the command , + to allow that command
+
+# if we want to change the default auto redirected page when we open our website link we use that command
+
+# here for example we changed the default page to main.html if that page is not found it searches for index.php page
+
+# DirectoryIndex main.html index.php
+
+# To Prevent Follow Abbreviations that located out side our server root directory we use the following command
+
+# Don't Follow Symbolic Links that are out side server directory
+
+# OPTIONS -FollowSymLinks
+
+# if i want to hide Server Signature that show when error occurs for example , when 404 Error occurs , below in that page we find the
+
+# Server Name , version of that server , OS that working on , and the Port that used to run that server , and that is not secure at all
+
+# for us to prevent us from hackers
+
+# # ServerSignature OFF
+
+OPTIONS -indexes
+
+# If We want to redirect to a known page if the requested page is not found we use the following command
+
+# # RewriteEngine on
+
+# that we like make if statement if the request filename is not found !-f
+
+# # RewriteCond %{REQUEST_FILENAME} !-f
+
+# and also if the directory doesn't exists
+
+# # RewriteCond %{REQUEST_FILENAME} !-d
+
+# we write . "which means everything in our website to a know page or any page we want" and the braces mens => L means last thing after everything , R=301 means that we do that all the time if that issue occurs
+
+# # RewriteRule . /E_Commerce/main.html [L,R=301]
+
+# Another Way to do that and it is more nice that the previous one we use that command
+
+# # ErrorDocument "error_code" "the page we want to go"
+
+# That will go to main.html page
+
+# # ErrorDocument 404 /E_Commerce/main.html
+
+# # ErrorDocument 403 /E_Commerce/main.html
+
+# Prevent Directory Listing
+
+# # OPTIONS -Indexes
+
+# That will rewrite the url except the root server directory to index.php and $1 means that will make url Get variable has a value if the requested page that we write , QSA means that if there is a query string in our link , it will be appended to url Get variable
