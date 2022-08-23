@@ -28,11 +28,7 @@ function addCategory() {
     }
 }
 
-/* Edit Category */
 
-// Edit Name
-
-// Edit Status
 
 // Delete Category
 function deleteCategory(ev) {
@@ -57,6 +53,52 @@ function deleteCategory(ev) {
 // Show Categories
 // * In showTables.js File 
 
+/* Edit Category */
+
+// Edit Name
+
+function editCategoryName(linkEvent) {
+    /**
+     * Edit Category Name
+     * @param event ev The event passed to control the HTML Element
+     */
+    linkEvent.preventDefault();
+    let info = document.querySelector(".edit_category");
+    if (info.classList.contains("hide")) {
+        info.classList.remove("hide");
+        let element = linkEvent.currentTarget;
+        let form = document.querySelector(".form-inline");
+        form.addEventListener("submit", (formEvent) => {
+            formEvent.preventDefault();
+            let formdata = new FormData(form);
+            formdata.append("id", element.getAttribute("id"));
+            formdata = JSON.stringify(Object.fromEntries(formdata.entries()))
+            $.ajax({
+                type: "POST",
+                data: formdata,
+                url: element.getAttribute("href"),
+                dataType: 'json',
+                success: function (res) {
+                    res = JSON.parse(res);
+                    console.log(res)
+                    if ("success" in res) {
+                        $("#categoryName").html(res['data'])
+                    }
+                },
+                error: function (a, b, c) {
+                    console.log(a, b, c)
+                }
+            });
+        })
+        info.classList.add("show");
+    }
+    else {
+        info.classList.remove("show");
+        info.classList.add("hide");
+    }
+}
+
+// Edit Status
 function editCategoryStatus(ev) {
     ev.preventDefault();
     let element = ev.currentTarget;

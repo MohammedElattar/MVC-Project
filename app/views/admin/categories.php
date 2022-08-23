@@ -40,12 +40,23 @@
                         </div>
                     </form>
                 </div>
-                <button class="btn btn-primary add-category-btn" style="margin: 20px 0;" onclick="addCategory()"><i class="fa fa-plus"></i> Add new Category</button>
+                <div class="edit_category" style="display: none;">
+                    <form class="form-inline">
+                        <div class="form-group mb-2">
+                            <label for="name" class="sr-only">Name</label>
+                            <input type="text" name="name" class="form-control-plaintext" id="categoryName" value="Google">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                    </form>
+                    <button class="btn btn-primary add-category-btn" style="margin: 20px 0;" onclick="addCategory()"><i class="fa fa-plus"></i> Add new Category</button>
+                </div>
             </div>
         </div>
         <?php $this->view("admin/footer") ?>
         <script>
+            // Add Div
             let btn = document.querySelector(".add-category-btn");
+            btn
             let close = document.querySelector("#add-category-btn");
             $(".add-category-btn").on("click", () => {
                 $(".add-category").css('display', 'block')
@@ -53,4 +64,6 @@
             $("#close").on("click", () => {
                 $(".add-category").css("display", 'none')
             })
+
+            // Edit Div Information
         </script>

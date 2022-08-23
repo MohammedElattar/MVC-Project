@@ -19,6 +19,11 @@ class Ajax extends Controller
                     $res = $category->edit_status($_POST);
                     $res = json_encode($res);
                     echo $res;
+                } else if ($param == 'edit_name') {
+                    // print_r($_POST);
+                    // echo "Hi From Edit Status";
+                    $res = json_encode($category->edit_name($_POST));
+                    echo $res;
                 } else if ($param == 'delete') {
                     $category->delete($_POST);
                 }
