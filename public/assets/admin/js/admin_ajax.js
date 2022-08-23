@@ -64,15 +64,30 @@ function editCategoryName(linkEvent) {
      */
     linkEvent.preventDefault();
     let info = document.querySelector(".edit_category");
+
     if (info.classList.contains("hide")) {
-        info.classList.remove("hide");
+        info.classList.remove('hide');
+
         let element = linkEvent.currentTarget;
+        let id = element.getAttribute("id");
+        console.log(id)
         let form = document.querySelector(".form-inline");
+        // Getting Name filed info to show 
+        $.ajax({
+            type: "POST",
+            url: "/E_Commerce/public/ajax/categories/get_content",
+            data: `{"id":${id}}`,
+            success: function (res) {
+                res = JSON.parse(res);
+                if (res) $("#categoryName").val(res);
+            }
+        });
+        form.setAttribute("id", id);
         form.addEventListener("submit", (formEvent) => {
             formEvent.preventDefault();
             let formdata = new FormData(form);
-            formdata.append("id", element.getAttribute("id"));
-            formdata = JSON.stringify(Object.fromEntries(formdata.entries()))
+            formdata.append("id", form.getAttribute("id"));
+            formdata = JSON.stringify(Object.fromEntries(formdata.entries()));
             $.ajax({
                 type: "POST",
                 data: formdata,
@@ -80,9 +95,13 @@ function editCategoryName(linkEvent) {
                 dataType: 'json',
                 success: function (res) {
                     res = JSON.parse(res);
-                    console.log(res)
                     if ("success" in res) {
-                        $("#categoryName").html(res['data'])
+                        // Change the value of input filed to the current element name
+                        $("#categoryName").html(res['data']);
+
+                        // update the table content after update
+
+                        $(".table-body").html(res['data'])
                     }
                 },
                 error: function (a, b, c) {
@@ -90,12 +109,8 @@ function editCategoryName(linkEvent) {
                 }
             });
         })
-        info.classList.add("show");
     }
-    else {
-        info.classList.remove("show");
-        info.classList.add("hide");
-    }
+    else info.classList.add("hide")
 }
 
 // Edit Status

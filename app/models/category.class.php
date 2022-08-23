@@ -74,6 +74,7 @@ class Category
             else {
                 $this->db->write("UPDATE categories SET name=? WHERE id =?", [$name, $id]);
                 $res['success'] = '1';
+                $res['data'] = $this->show();
             }
         }
         $res = json_encode($res);
@@ -89,6 +90,9 @@ class Category
     public function show(string $query = "SELECT * FROM Categories", array $executeData = [])
     {
         $res  =  $this->db->read($query, $executeData, true)[0];
+        if ($executeData) {
+            return $res[0];
+        }
         $str = '';
         foreach ($res as $i) {
             $str .= sprintf(

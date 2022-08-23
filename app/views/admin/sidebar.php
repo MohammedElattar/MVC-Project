@@ -16,18 +16,6 @@
                 </a>
             </li>
             <li class="sub-menu">
-                <a href="<?= ROOT ?>admin/products">
-                    <i class="fa fa-desktop"></i>
-                    <span>Products</span>
-                </a>
-                <ul class="sub">
-                    <li><a href="<?= ROOT ?>admin/products/show">View Products</a></li>
-                    <li><a href="<?= ROOT ?>admin/products/add">Add New Product</a></li>
-                    <li><a href="<?= ROOT ?>admin/products/edit">Edit Product</a></li>
-                    <li><a href="<?= ROOT ?>admin/products/delete">Delete Product</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
                 <a href="<?= ROOT ?>admin/categories">
                     <i class="fa fa-desktop"></i>
                     <span>Categories</span>
@@ -37,6 +25,18 @@
                     <li><a href="<?= ROOT ?>admin/categories/add">Add New Category</a></li>
                     <li><a href="<?= ROOT ?>admin/categories/edit">Edit Category</a></li>
                     <li><a href="<?= ROOT ?>admin/categories/delete">Delete Category</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="<?= ROOT ?>admin/products">
+                    <i class="fa fa-desktop"></i>
+                    <span>Products</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="<?= ROOT ?>admin/products/">View Products</a></li>
+                    <li><a href="<?= ROOT ?>admin/products/add">Add New Product</a></li>
+                    <li><a href="<?= ROOT ?>admin/products/edit">Edit Product</a></li>
+                    <li><a href="<?= ROOT ?>admin/products/delete">Delete Product</a></li>
                 </ul>
             </li>
 

@@ -40,16 +40,16 @@
                         </div>
                     </form>
                 </div>
-                <div class="edit_category" style="display: none;">
+                <div class="edit_category hide">
                     <form class="form-inline">
                         <div class="form-group mb-2">
                             <label for="name" class="sr-only">Name</label>
-                            <input type="text" name="name" class="form-control-plaintext" id="categoryName" value="Google">
+                            <input type="text" name="name" class="form-control-plaintext" id="categoryName">
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
                     </form>
-                    <button class="btn btn-primary add-category-btn" style="margin: 20px 0;" onclick="addCategory()"><i class="fa fa-plus"></i> Add new Category</button>
                 </div>
+                <button class="btn btn-primary add-category-btn" style="margin: 20px 0;" onclick="addCategory()"><i class="fa fa-plus"></i> Add new Category</button>
             </div>
         </div>
         <?php $this->view("admin/footer") ?>
