@@ -2,7 +2,7 @@
 $rank = '';
 if (isset($_SESSION['data']['id'])) {
 	$userInfo = $_SESSION['data'];
-	$rank = $userInfo['rank'] ? 'admin' : '';
+	$rank = $userInfo['rank'] == 'admin' ? 'admin' : '';
 }
 ?>
 

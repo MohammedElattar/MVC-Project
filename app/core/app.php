@@ -26,7 +26,6 @@ class App
         }
         $this->params = $url ? $url : ['home'];
         call_user_func_array([$this->controller, $this->method], $this->params);
-        // print_r($url);
     }
 
     private function parseUrl()

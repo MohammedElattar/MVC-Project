@@ -47,4 +47,9 @@ class Controller
         $user = $this->load_model("User");
         return $user->loggedIn();
     }
+
+    public function isPost()
+    {
+        return $_SERVER['REQUEST_METHOD'] == 'POST';
+    }
 }

@@ -87,12 +87,13 @@ class Category
         $res = json_encode($res);
         echo $res;
     }
-    public function show(string $query = "SELECT * FROM Categories", array $executeData = [])
+    public function show(string $query = "SELECT * FROM Categories", array $executeData = [], bool $return_original_data = false)
     {
         $res  =  $this->db->read($query, $executeData, true)[0];
-        if ($executeData) {
-            return $res[0];
-        }
+        // if ($executeData) {
+        //     return $res[0];
+        // }
+        if ($return_original_data) return $res;
         $str = '';
         foreach ($res as $i) {
             $str .= sprintf(
