@@ -45,7 +45,7 @@ class Ajax extends Controller
                 }
                 else if (isset($params[2]) && $params[2] == 'get_contents_for_products') {
                     $str = '';
-                    foreach ($category->show("SELECT id , name FROM categories WHERE disabled=0", [], true)[0] as $i) {
+                    foreach ($category->show("SELECT id , name FROM categories WHERE disabled=0", [], true) as $i) {
                         $str .= sprintf('
                         <option value="%s">%s</option>
                         ', $i['id'], $i['name']);
@@ -69,13 +69,13 @@ class Ajax extends Controller
     public function products($params = "")
     {
         if ($this->logged()) {
-            $params = json_decode($params);
+            $params = json_decode($params, true);
             if ($this->isPost()) {
                 $res = [];
                 $product = $this->load_model("Product");
                 // ! Remove that file because it cause a bug when we send files to PHP 
                 // $_POST = json_decode(file_get_contents('php://input'), true);
-                if ($params[0] == 'add') {
+                if ($params[2] == 'add') {
                     $res = json_encode($product->add($_POST, $_FILES));
                 // for ($i = 0; $i < count($_FILES); $i++) {
                 //     print_r($_FILES[$i]);

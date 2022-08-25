@@ -144,9 +144,9 @@ class Product
                     $i['id']
                 );
             }
+            $res['success'] = '1';
+            $res['product'] = $str;
         }
-        $res['success'] = '1';
-        $res['product'] = $str;
         return $res;
     }
     public function edit_status(array $data)

@@ -140,7 +140,7 @@ function editCategoryStatus(ev) {
             $(".table-body").html(res["data"]);
         },
         error: function (a, b, c) {
-            console.log(a, b, c);
+            // console.log(a, b, c);
         },
     });
 }
@@ -169,19 +169,15 @@ function addProduct() {
         if (photos.length > 1) {
             photos = photos[1].files;
             let cnt = 1;
-            loop_keys: Object.keys(photos).forEach((e) => {
+            Object.keys(photos).forEach((e) => {
                 if (cnt < 4) formdata.append(`photo_${cnt}`, photos[e]);
                 cnt++;
             });
         }
-        // keys = photos.keys
-        console.log();
-        // formdata = JSON.stringify(Object.fromEntries(formdata.entries()));
         $.ajax({
             type: "POST",
             url: "/E_Commerce/public/ajax/products/add",
             data: formdata,
-
             //! These Lines Added to be able to send files using query Ajax or we can use XMLHttpRequest object instead
 
             processData: false,
@@ -189,7 +185,6 @@ function addProduct() {
             cache: false,
             success: function (res) {
                 res = JSON.parse(res);
-                console.log(res);
                 if ("success" in res) {
                     $(".table-body").html(res["product"]);
                 }
