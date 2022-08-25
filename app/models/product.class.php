@@ -65,7 +65,8 @@ class Product
                     if (!isset($res['image-error']))
                         $res['image-error'] = '';
                     $res['image-error'] .= "photo_$photos_keys[$i] ";
-                } else {
+                }
+                else {
                     if ($FILES[$photos_keys[$i]]['size'] > 4194304) {
                         if (!isset($res['image-size']))
                             $res['image-size'] = '';
@@ -78,7 +79,8 @@ class Product
                     }
                 }
             }
-        } else
+        }
+        else
             $res['main-image'] = '1';
 
         if (!$res) {
@@ -104,7 +106,7 @@ class Product
                     (name , description , userid , category_id , quantity , price , main_image , other_images)
                 VALUES 
                     (?,?,?,?,?,?,?,?)",
-                [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price, $main_image, json_encode($photos_keys)]
+            [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price, $main_image, json_encode($photos_keys)]
             );
             $str = '';
             foreach ($this->show() as $i) {
@@ -129,13 +131,13 @@ class Product
                     sprintf("<img src='%s' style='width:100px ; height:50px'>", ROOT . "uploads/" . $i['main_image']),
                     $i['cat_name'],
                     sprintf(
-                        "<a href='%s' class='btn %s status' data-id='%s' onclick='editProductStatus(event)'>%s</a>",
+                    "<a href='%s' class='btn %s status' data-id='%s' onclick='editProductStatus(event)'>%s</a>",
 
-                        ROOT . "ajax/categories/edit_status",
-                        $i['status'] == 0 ? "btn-primary" : ($i['status'] == 1 ? "btn-success" : "btn-danger"),
-                        $i['id'],
-                        $i['status'] == 0 ? "Normal" : ($i['status'] == 1 ? "Sale" : "New"),
-                    ),
+                    ROOT . "ajax/categories/edit_status",
+                    $i['status'] == 0 ? "btn-primary" : ($i['status'] == 1 ? "btn-success" : "btn-danger"),
+                    $i['id'],
+                    $i['status'] == 0 ? "Normal" : ($i['status'] == 1 ? "Sale" : "New"),
+                ),
                     ROOT,
                     $i['id'],
                     ROOT,

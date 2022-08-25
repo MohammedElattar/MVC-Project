@@ -7,15 +7,18 @@ class checkInputsClass
     private bool $is_image;
     public array $res;
 
-    function __construct($val, bool $is_string = false, bool $is_image = false, bool $is_numeric = false,)
+    function __construct($val, bool $is_string = false, bool $is_image = false, bool $is_numeric = false, )
     {
         $this->val = $val;
         $this->is_string = $is_string;
         $this->is_image = $is_image;
         $this->is_numeric = $is_numeric;
-        if ($this->is_string) $this->check_is_string();
-        if ($this->is_numeric) $this->check_is_numeric();
-        if ($this->is_image) $this->check_is_image();
+        if ($this->is_string)
+            $this->check_is_string();
+        if ($this->is_numeric)
+            $this->check_is_numeric();
+        if ($this->is_image)
+            $this->check_is_image();
     }
     private function check_is_string()
     {

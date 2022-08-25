@@ -8,12 +8,13 @@ class Home extends Controller
         if ($user->loggedIn()) {
             $data['title'] = "Home";
             $this->view("eshop/index", $data);
-        } else {
+        }
+        else {
             $data['title'] = 'Login';
             $this->view("eshop/login", $data);
         }
-        // echo '<pre>';
-        // print_r($_SESSION);
-        // echo '</pre>';
+    // echo '<pre>';
+    // print_r($_SESSION);
+    // echo '</pre>';
     }
 }

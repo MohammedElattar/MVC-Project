@@ -8,10 +8,13 @@ class Admin extends Controller
             if ($_SESSION['data']['rank'] == 'admin') {
                 $data['title'] = "Admin";
                 $this->view("admin/blank", $data);
-            } else {
+            }
+            else {
                 header("Location:" . ROOT);
             }
-        } else header("Location:" . ROOT);
+        }
+        else
+            header("Location:" . ROOT);
     }
     public function categories($param = "")
     {
@@ -30,8 +33,12 @@ class Admin extends Controller
                 $data['title'] = 'Categories';
                 $data['data'] = $category->show();
                 $this->view("admin/categories", $data);
-            } else header("Location:" . ROOT . "404");
-        } else header("Location:" . ROOT);
+            }
+            else
+                header("Location:" . ROOT . "404");
+        }
+        else
+            header("Location:" . ROOT);
     }
 
     public function products($param = "")
@@ -64,13 +71,13 @@ class Admin extends Controller
                         sprintf("<img src='%s' style='width:100px;height:50px'>", ROOT . "uploads/" . $i['main_image']),
                         $i['cat_name'],
                         sprintf(
-                            "<a href='%s' class='btn %s status' data-id='%s' onclick='editProductStatus(event)'>%s</a>",
+                        "<a href='%s' class='btn %s status' data-id='%s' onclick='editProductStatus(event)'>%s</a>",
 
-                            ROOT . "ajax/categories/edit_status",
-                            $i['status'] == 0 ? "btn-primary" : ($i['status'] == 1 ? "btn-success" : "btn-danger"),
-                            $i['id'],
-                            $i['status'] == 0 ? "Normal" : ($i['status'] == 1 ? "Sale" : "New"),
-                        ),
+                        ROOT . "ajax/categories/edit_status",
+                        $i['status'] == 0 ? "btn-primary" : ($i['status'] == 1 ? "btn-success" : "btn-danger"),
+                        $i['id'],
+                        $i['status'] == 0 ? "Normal" : ($i['status'] == 1 ? "Sale" : "New"),
+                    ),
                         ROOT,
                         $i['id'],
                         ROOT,
@@ -79,7 +86,11 @@ class Admin extends Controller
                 }
                 $data['data'] = $str;
                 $this->view("admin/products", $data);
-            } else header("Location:" . ROOT . "admin/products");
-        } else header("Location:" . ROOT);
+            }
+            else
+                header("Location:" . ROOT . "admin/products");
+        }
+        else
+            header("Location:" . ROOT);
     }
 }

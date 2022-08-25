@@ -14,7 +14,9 @@ class App
         if (file_exists('../app/controllers/' . strtolower($url[0]) . ".php")) {
             $this->controller = strtolower($url[0]);
             unset($url[0]);
-        } else echo "Class Not Found";
+        }
+        else
+            echo "Class Not Found";
         require "../app/controllers/$this->controller.php"; // Works !
 
         $this->controller = new $this->controller;
@@ -24,7 +26,9 @@ class App
                 unset($url[1]);
             }
         }
-        $this->params = $url ? $url : ['home'];
+        $this->params = $url ? [json_encode($url)] : ['home'];
+        // $this->params = json_encode($this->params);
+        // print_r($this->params);
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 

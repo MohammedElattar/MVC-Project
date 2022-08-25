@@ -10,8 +10,9 @@ class db
             self::$PDO = new PDO("mysql:host=" . HOST . ";dbname=" . DB_NAME, USER, PASS);
             self::$PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$PDO->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        }
+        catch (PDOException $e) {
+            print_r($e->getMessage());
         }
     }
 
@@ -79,7 +80,9 @@ class db
             $stmt = self::$PDO->prepare($deleteQuery, $deleteData);
             $stmt->execute($checkData);
             $res['success'] = '1';
-        } else $res['not-found'] = '1';
+        }
+        else
+            $res['not-found'] = '1';
         return $res;
     }
 }

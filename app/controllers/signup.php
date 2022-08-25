@@ -10,10 +10,12 @@ class SignUp extends Controller
             $res = $user->SignUp($_POST);
             $res = json_encode($res);
             echo $res;
-        } else {
+        }
+        else {
             if ($user->loggedIn()) {
                 header("Location:" . ROOT);
-            } else {
+            }
+            else {
                 $data['title'] = 'Sign Up';
                 $this->view("eshop/signup", $data);
             }

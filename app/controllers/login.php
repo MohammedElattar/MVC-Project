@@ -14,11 +14,13 @@ class Login extends Controller
             }
             $res = json_encode($res);
             echo $res;
-        } else {
+        }
+        else {
             if ($user->loggedIn()) {
                 $data['title'] = 'Home';
                 $this->view("eshop/index", $data);
-            } else {
+            }
+            else {
                 $data['title'] = 'Login';
                 $this->view("eshop/login", $data);
             }

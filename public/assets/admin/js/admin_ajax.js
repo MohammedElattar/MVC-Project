@@ -1,9 +1,20 @@
-
 /*========================================================== Categories ===============================================================*/
 
 // Add Category
 function addCategory() {
     let addCategory = document.querySelector(".add-category-form");
+
+    //getting sub_categories
+
+    let sub_categories = $("#sub_category");
+    $.ajax({
+        type: "POST",
+        url: sub_categories.attr("link"),
+        success: function (res) {
+            sub_categories.html(res);
+        },
+    });
+
     if (addCategory) {
         addCategory.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -14,21 +25,21 @@ function addCategory() {
             formdata = JSON.stringify(Object.fromEntries(formdata.entries()));
             $.ajax({
                 type: "POST",
-                url: "/E_Commerce/public/ajax/categories/add",
+                url: addCategory.getAttribute("action"),
                 data: formdata,
                 dataType: "json",
                 success: function (res) {
                     if ("success" in res) {
-                        $(".table-body").html(res['category']);
+                        $(".table-body").html(res["category"]);
                     }
-                }
+                },
+                error: function (XHRStatus, b, c) {
+                    console.log(XHRStatus);
+                },
             });
-        })
-
+        });
     }
 }
-
-
 
 // Delete Category
 function deleteCategory(ev) {
@@ -36,7 +47,7 @@ function deleteCategory(ev) {
     let element = ev.currentTarget;
     if (confirm("Deletion Confirm ? ")) {
         let formdata = new FormData();
-        formdata.append("id", element.getAttribute("id"))
+        formdata.append("id", element.getAttribute("id"));
         formdata = JSON.stringify(Object.fromEntries(formdata.entries()));
         $.ajax({
             type: "POST",
@@ -44,11 +55,10 @@ function deleteCategory(ev) {
             data: formdata,
             dataType: "json",
             success: function (res) {
-                if ("success" in res) $(".table-body").html(res['data'])
-            }
+                if ("success" in res) $(".table-body").html(res["data"]);
+            },
         });
     }
-
 }
 
 /* Edit Category */
@@ -64,21 +74,22 @@ function editCategoryName(linkEvent) {
     let info = document.querySelector(".edit_category");
 
     if (info.classList.contains("hide")) {
-        info.classList.remove('hide');
+        info.classList.remove("hide");
 
         let element = linkEvent.currentTarget;
         let id = element.getAttribute("id");
-        console.log(id)
         let form = document.querySelector(".form-inline");
-        // Getting Name filed info to show 
+        // Getting info to fill 
+        let sub_categories = $("#edit_sub_category")
         $.ajax({
             type: "POST",
             url: "/E_Commerce/public/ajax/categories/get_content",
             data: `{"id":${id}}`,
             success: function (res) {
                 res = JSON.parse(res);
-                if (res) $("#categoryName").val(res);
-            }
+                if ('name' in res) $("#categoryName").val(res['name']);
+                if ("sub_category" in res) sub_categories.html(res['sub_category'])
+            },
         });
         form.setAttribute("id", id);
         form.addEventListener("submit", (formEvent) => {
@@ -90,25 +101,24 @@ function editCategoryName(linkEvent) {
                 type: "POST",
                 data: formdata,
                 url: element.getAttribute("href"),
-                dataType: 'json',
+                dataType: "json",
                 success: function (res) {
                     res = JSON.parse(res);
                     if ("success" in res) {
                         // Change the value of input filed to the current element name
-                        $("#categoryName").html(res['data']);
+                        $("#categoryName").html(res["data"]);
 
                         // update the table content after update
 
-                        $(".table-body").html(res['data'])
+                        $(".table-body").html(res["data"]);
                     }
                 },
                 error: function (a, b, c) {
-                    console.log(a, b, c)
-                }
+                    console.log(a, b, c);
+                },
             });
-        })
-    }
-    else info.classList.add("hide")
+        });
+    } else info.classList.add("hide");
 }
 
 // Edit Status
@@ -127,15 +137,13 @@ function editCategoryStatus(ev) {
         data: formdata,
         success: function (res) {
             res = JSON.parse(res);
-            $(".table-body").html(res['data'])
+            $(".table-body").html(res["data"]);
         },
         error: function (a, b, c) {
-            console.log(a, b, c)
-        }
+            console.log(a, b, c);
+        },
     });
 }
-
-
 
 /*================================================================== Products ========================================================================*/
 
@@ -148,8 +156,8 @@ function addProduct() {
         url: "/E_Commerce/public/ajax/categories/get_contents_for_products",
         success: function (res) {
             res = JSON.parse(res);
-            $("#category_name").html(res)
-        }
+            $("#category_name").html(res);
+        },
     });
     addProduct.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -162,13 +170,12 @@ function addProduct() {
             photos = photos[1].files;
             let cnt = 1;
             loop_keys: Object.keys(photos).forEach((e) => {
-                if (cnt < 4)
-                    formdata.append(`photo_${cnt}`, photos[e]);
+                if (cnt < 4) formdata.append(`photo_${cnt}`, photos[e]);
                 cnt++;
-            })
+            });
         }
         // keys = photos.keys
-        console.log()
+        console.log();
         // formdata = JSON.stringify(Object.fromEntries(formdata.entries()));
         $.ajax({
             type: "POST",
@@ -184,12 +191,12 @@ function addProduct() {
                 res = JSON.parse(res);
                 console.log(res);
                 if ("success" in res) {
-                    $(".table-body").html(res['product'])
+                    $(".table-body").html(res["product"]);
                 }
-            }
+            },
         });
         // * we use XMLHttpRequest Object instead
-    })
+    });
 }
 
 // Delete Category
@@ -198,7 +205,7 @@ function deleteProduct(ev) {
     let element = ev.currentTarget;
     if (confirm("Deletion Confirm ? ")) {
         let formdata = new FormData();
-        formdata.append("id", element.getAttribute("id"))
+        formdata.append("id", element.getAttribute("id"));
         formdata = JSON.stringify(Object.fromEntries(formdata.entries()));
         $.ajax({
             type: "POST",
@@ -206,9 +213,8 @@ function deleteProduct(ev) {
             data: formdata,
             dataType: "json",
             success: function (res) {
-                if ("success" in res) $(".table-body").html(res['data'])
-            }
+                if ("success" in res) $(".table-body").html(res["data"]);
+            },
         });
     }
-
 }

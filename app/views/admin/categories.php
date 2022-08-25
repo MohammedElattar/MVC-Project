@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th><i class="fa fa-bullhorn"></i> Name</th>
+                                <th><i class="fa fa-bullhorn"></i>Sub Category</th>
                                 <th class="text-center"><i class="fa fa-edit"></i> Status</th>
                                 <th class="text-center">Control</th>
                             </tr>
@@ -29,10 +30,14 @@
                     </table>
                 </div><!-- /content-panel -->
                 <div class="add-category" style="display: none;">
-                    <form method="POST" class="add-category-form">
+                    <form action="<?= ROOT ?>ajax/categories/add" method="POST" class="add-category-form">
                         <div class="form-group">
                             <label for="name">Category Name</label>
                             <input type="text" name="name" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Sub Category</label>
+                            <select name="sub_category" id="sub_category" link="<?= ROOT ?>ajax/categories/add/get_sub_categories"></select>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success" id="add-category-send">Add Category</button>
@@ -46,7 +51,11 @@
                             <label for="name" class="sr-only">Name</label>
                             <input type="text" name="name" class="form-control-plaintext" id="categoryName">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                        <div class="form-group">
+                            <label for="name">Sub Category</label>
+                            <select name="sub_category" id="edit_sub_category" link="<?= ROOT ?>ajax/categories/edit/get_content"></select>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Edit Category</button>
                     </form>
                 </div>
                 <button class="btn btn-primary add-category-btn" style="margin: 20px 0;" onclick="addCategory()"><i class="fa fa-plus"></i> Add new Category</button>

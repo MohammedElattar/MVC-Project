@@ -23,7 +23,9 @@ class Controller
          */
         if (file_exists("../app/views/$path.php")) {
             include "../app/views/$path.php";
-        } else include "../app/views/eshop/404.php";
+        }
+        else
+            include "../app/views/eshop/404.php";
     }
     public function load_model($model_name)
     {

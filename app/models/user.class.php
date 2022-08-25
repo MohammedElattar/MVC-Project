@@ -61,7 +61,8 @@ class User
                 $res['success'] = '1';
                 if ($returnData)
                     $res['data'] = $found[0][0];
-            } else {
+            }
+            else {
                 $res['not-exists'] = '1';
             }
         }
