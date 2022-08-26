@@ -1,3 +1,5 @@
+============================== code => ## , explanation # ===============================================
+
 # No we gonna talk about .htaccess file that used to configure our apache server
 
 # There are some rules we should know in htacces file that are standard in many commands
@@ -8,13 +10,13 @@
 
 # here for example we changed the default page to main.html if that page is not found it searches for index.php page
 
-# DirectoryIndex main.html index.php
+# # DirectoryIndex main.html index.php
 
 # To Prevent Follow Abbreviations that located out side our server root directory we use the following command
 
 # Don't Follow Symbolic Links that are out side server directory
 
-# OPTIONS -FollowSymLinks
+# # OPTIONS -FollowSymLinks
 
 # if i want to hide Server Signature that show when error occurs for example , when 404 Error occurs , below in that page we find the
 
