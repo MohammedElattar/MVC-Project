@@ -22,13 +22,13 @@
     this.element = $(element);
     this.picker = $(
       '<div class="slider">' +
-        '<div class="slider-track">' +
-        '<div class="slider-selection"></div>' +
-        '<div class="slider-handle"></div>' +
-        '<div class="slider-handle"></div>' +
-        "</div>" +
-        '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>' +
-        "</div>"
+      '<div class="slider-track">' +
+      '<div class="slider-selection"></div>' +
+      '<div class="slider-handle"></div>' +
+      '<div class="slider-handle"></div>' +
+      "</div>" +
+      '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>' +
+      "</div>"
     )
       .insertBefore(this.element)
       .append(this.element);
@@ -190,7 +190,7 @@
           (this.size *
             (this.percentage[0] +
               (this.percentage[1] - this.percentage[0]) / 2)) /
-            100 -
+          100 -
           (this.orientation === "vertical"
             ? this.tooltip.outerHeight() / 2
             : this.tooltip.outerWidth() / 2) +
@@ -319,18 +319,18 @@
       if (this.range) {
         val = [
           this.min +
-            Math.round((this.diff * this.percentage[0]) / 100 / this.step) *
-              this.step,
+          Math.round((this.diff * this.percentage[0]) / 100 / this.step) *
+          this.step,
           this.min +
-            Math.round((this.diff * this.percentage[1]) / 100 / this.step) *
-              this.step,
+          Math.round((this.diff * this.percentage[1]) / 100 / this.step) *
+          this.step,
         ];
         this.value = val;
       } else {
         val =
           this.min +
           Math.round((this.diff * this.percentage[0]) / 100 / this.step) *
-            this.step;
+          this.step;
         this.value = [val, this.value[1]];
       }
       return val;

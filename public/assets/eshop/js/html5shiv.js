@@ -18,8 +18,8 @@
     b = c.cache[a]
       ? c.cache[a].cloneNode()
       : r.test(a)
-      ? (c.cache[a] = c.createElem(a)).cloneNode()
-      : c.createElem(a);
+        ? (c.cache[a] = c.createElem(a)).cloneNode()
+        : c.createElem(a);
     return b.canHaveChildren && !s.test(a) ? c.frag.appendChild(b) : b;
   }
   function t(a, b) {
@@ -34,14 +34,14 @@
     a.createDocumentFragment = Function(
       "h,f",
       "return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&(" +
-        m()
-          .join()
-          .replace(/\w+/g, function (a) {
-            b.createElem(a);
-            b.frag.createElement(a);
-            return 'c("' + a + '")';
-          }) +
-        ");return n}"
+      m()
+        .join()
+        .replace(/\w+/g, function (a) {
+          b.createElem(a);
+          b.frag.createElement(a);
+          return 'c("' + a + '")';
+        }) +
+      ");return n}"
     )(e, b.frag);
   }
   function q(a) {

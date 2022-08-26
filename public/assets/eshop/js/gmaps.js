@@ -1372,11 +1372,11 @@
     }
 
     var base_options = {
-        avoidHighways: false,
-        avoidTolls: false,
-        optimizeWaypoints: false,
-        waypoints: [],
-      },
+      avoidHighways: false,
+      avoidTolls: false,
+      optimizeWaypoints: false,
+      waypoints: [],
+    },
       request_options = extend_object(base_options, options);
 
     request_options.origin = /string/.test(typeof options.origin)
@@ -1992,14 +1992,14 @@
     delete options.lng;
 
     var streetview_events = [
-        "closeclick",
-        "links_changed",
-        "pano_changed",
-        "position_changed",
-        "pov_changed",
-        "resize",
-        "visible_changed",
-      ],
+      "closeclick",
+      "links_changed",
+      "pano_changed",
+      "position_changed",
+      "pov_changed",
+      "resize",
+      "visible_changed",
+    ],
       streetview_options = extend_object({ visible: true }, options);
 
     for (var i = 0; i < streetview_events.length; i++) {
@@ -2182,9 +2182,9 @@
           ) {
             if (
               vertex1.lat() +
-                ((latLng.lng() - vertex1.lng()) /
-                  (vertex2.lng() - vertex1.lng())) *
-                  (vertex2.lat() - vertex1.lat()) <
+              ((latLng.lng() - vertex1.lng()) /
+                (vertex2.lng() - vertex1.lng())) *
+              (vertex2.lat() - vertex1.lat()) <
               latLng.lat()
             ) {
               inPoly = !inPoly;

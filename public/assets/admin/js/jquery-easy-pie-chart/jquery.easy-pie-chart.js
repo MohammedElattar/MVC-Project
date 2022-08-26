@@ -37,10 +37,10 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.percentage = 0;
         _this.canvas = $(
           "<canvas width='" +
-            _this.options.size +
-            "' height='" +
-            _this.options.size +
-            "'></canvas>"
+          _this.options.size +
+          "' height='" +
+          _this.options.size +
+          "'></canvas>"
         ).get(0);
         _this.$el.append(_this.canvas);
         if (

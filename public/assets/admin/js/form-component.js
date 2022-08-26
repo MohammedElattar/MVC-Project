@@ -232,7 +232,7 @@ var Script = (function () {
   //Set the initial state of the picker label
   $("#reportrange span").html(
     Date.today().add({ days: -29 }).toString("MMMM d, yyyy") +
-      " - " +
-      Date.today().toString("MMMM d, yyyy")
+    " - " +
+    Date.today().toString("MMMM d, yyyy")
   );
 })();

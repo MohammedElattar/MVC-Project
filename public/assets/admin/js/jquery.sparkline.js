@@ -602,7 +602,7 @@
     normalizeValues = function (vals) {
       var i,
         result = [];
-      for (i = vals.length; i--; ) {
+      for (i = vals.length; i--;) {
         result[i] = normalizeValue(vals[i]);
       }
       return result;
@@ -643,7 +643,7 @@
     // returns true if the array is empty
     all = function (val, arr, ignoreNull) {
       var i;
-      for (i = arr.length; i--; ) {
+      for (i = arr.length; i--;) {
         if (ignoreNull && arr[i] === null) continue;
         if (arr[i] !== val) {
           return false;
@@ -656,7 +656,7 @@
     sum = function (vals) {
       var total = 0,
         i;
-      for (i = vals.length; i--; ) {
+      for (i = vals.length; i--;) {
         total += typeof vals[i] === "number" ? vals[i] : 0;
       }
       return total;
@@ -678,7 +678,7 @@
         document.getElementsByTagName("head")[0].appendChild(tag);
         tag[
           typeof document.body.style.WebkitAppearance ==
-          "string" /* webkit only */
+            "string" /* webkit only */
             ? "innerText"
             : "innerHTML"
         ] = css;
@@ -774,7 +774,7 @@
           return result;
         }
         if (rangelist) {
-          for (i = rangelist.length; i--; ) {
+          for (i = rangelist.length; i--;) {
             range = rangelist[i];
             if (range[0] <= value && range[1] >= value) {
               return range[2];
@@ -1213,13 +1213,13 @@
             val = UNSET_OPTION;
           } else if (val.substr(0, 1) === "[") {
             val = val.substr(1, val.length - 2).split(",");
-            for (i = val.length; i--; ) {
+            for (i = val.length; i--;) {
               val[i] = normalizeValue(val[i].replace(/(^\s*)|(\s*$)/g, ""));
             }
           } else if (val.substr(0, 1) === "{") {
             pairs = val.substr(1, val.length - 2).split(",");
             val = {};
-            for (i = pairs.length; i--; ) {
+            for (i = pairs.length; i--;) {
               keyval = pairs[i].split(":", 2);
               val[keyval[0].replace(/(^\s*)|(\s*$)/g, "")] = normalizeValue(
                 keyval[1].replace(/(^\s*)|(\s*$)/g, "")
@@ -1292,7 +1292,7 @@
       /**
        * Return a region id for a given x/y co-ordinate
        */
-      getRegion: function (x, y) {},
+      getRegion: function (x, y) { },
 
       /**
        * Highlight an item based on the moused-over x,y co-ordinate
@@ -1338,7 +1338,7 @@
         this.changeHighlight(false);
       },
 
-      changeHighlight: function (highlight) {},
+      changeHighlight: function (highlight) { },
 
       /**
        * Fetch the HTML to display as a tooltip
@@ -1390,7 +1390,7 @@
         if (showFields && showFieldsKey) {
           // user-selected ordering of fields
           newFields = [];
-          for (i = fields.length; i--; ) {
+          for (i = fields.length; i--;) {
             fv = fields[i][showFieldsKey];
             if ((j = $.inArray(fv, showFields)) != -1) {
               newFields[j] = fields[i];
@@ -1427,7 +1427,7 @@
         return "";
       },
 
-      getCurrentRegionFields: function () {},
+      getCurrentRegionFields: function () { },
 
       calcHighlightColor: function (color, options) {
         var highlightColor = options.get("highlightColor"),
@@ -1497,12 +1497,12 @@
         if (!this.cls._super.render.call(this)) {
           return;
         }
-        for (i = values.length; i--; ) {
+        for (i = values.length; i--;) {
           shapes = this.renderRegion(i);
           if (shapes) {
             if ($.isArray(shapes)) {
               ids = [];
-              for (j = shapes.length; j--; ) {
+              for (j = shapes.length; j--;) {
                 shapes[j].append();
                 ids.push(shapes[j].id);
               }
@@ -1541,7 +1541,7 @@
       getRegion: function (el, x, y) {
         var i,
           regionMap = this.regionMap; // maps regions to value positions
-        for (i = regionMap.length; i--; ) {
+        for (i = regionMap.length; i--;) {
           if (
             regionMap[i] !== null &&
             x >= regionMap[i][0] &&
@@ -1721,7 +1721,7 @@
             canvasTop +
             Math.round(
               canvasHeight -
-                canvasHeight * ((normalRangeMax - this.miny) / rangey)
+              canvasHeight * ((normalRangeMax - this.miny) / rangey)
             ),
           height = Math.round(
             (canvasHeight * (normalRangeMax - normalRangeMin)) / rangey
@@ -1867,7 +1867,7 @@
           xposnext =
             i < yvalcount - 1
               ? canvasLeft +
-                Math.round((xnext - this.minx) * (canvasWidth / rangex))
+              Math.round((xnext - this.minx) * (canvasWidth / rangex))
               : canvasWidth;
           next = xpos + (xposnext - xpos) / 2;
           regionMap[i] = [last || 0, next, i];
@@ -1894,9 +1894,9 @@
             vertex = [
               xpos,
               canvasTop +
-                Math.round(
-                  canvasHeight - canvasHeight * ((y - this.miny) / rangey)
-                ),
+              Math.round(
+                canvasHeight - canvasHeight * ((y - this.miny) / rangey)
+              ),
             ];
             path.push(vertex);
             vertices.push(vertex);
@@ -1972,14 +1972,14 @@
               target
                 .drawCircle(
                   canvasLeft +
-                    Math.round(
-                      (xvalues[i] - this.minx) * (canvasWidth / rangex)
-                    ),
+                  Math.round(
+                    (xvalues[i] - this.minx) * (canvasWidth / rangex)
+                  ),
                   canvasTop +
-                    Math.round(
-                      canvasHeight -
-                        canvasHeight * ((yvalues[i] - this.miny) / rangey)
-                    ),
+                  Math.round(
+                    canvasHeight -
+                    canvasHeight * ((yvalues[i] - this.miny) / rangey)
+                  ),
                   spotRadius,
                   undefined,
                   color
@@ -1996,15 +1996,15 @@
           target
             .drawCircle(
               canvasLeft +
-                Math.round(
-                  (xvalues[xvalues.length - 1] - this.minx) *
-                    (canvasWidth / rangex)
-                ),
+              Math.round(
+                (xvalues[xvalues.length - 1] - this.minx) *
+                (canvasWidth / rangex)
+              ),
               canvasTop +
-                Math.round(
-                  canvasHeight -
-                    canvasHeight * ((yvalues[yvallast] - this.miny) / rangey)
-                ),
+              Math.round(
+                canvasHeight -
+                canvasHeight * ((yvalues[yvallast] - this.miny) / rangey)
+              ),
               spotRadius,
               undefined,
               options.get("spotColor")
@@ -2017,12 +2017,12 @@
             target
               .drawCircle(
                 canvasLeft +
-                  Math.round((x - this.minx) * (canvasWidth / rangex)),
+                Math.round((x - this.minx) * (canvasWidth / rangex)),
                 canvasTop +
-                  Math.round(
-                    canvasHeight -
-                      canvasHeight * ((this.minyorg - this.miny) / rangey)
-                  ),
+                Math.round(
+                  canvasHeight -
+                  canvasHeight * ((this.minyorg - this.miny) / rangey)
+                ),
                 spotRadius,
                 undefined,
                 options.get("minSpotColor")
@@ -2034,12 +2034,12 @@
             target
               .drawCircle(
                 canvasLeft +
-                  Math.round((x - this.minx) * (canvasWidth / rangex)),
+                Math.round((x - this.minx) * (canvasWidth / rangex)),
                 canvasTop +
-                  Math.round(
-                    canvasHeight -
-                      canvasHeight * ((this.maxyorg - this.miny) / rangey)
-                  ),
+                Math.round(
+                  canvasHeight -
+                  canvasHeight * ((this.maxyorg - this.miny) / rangey)
+                ),
                 spotRadius,
                 undefined,
                 options.get("maxSpotColor")
@@ -2212,7 +2212,7 @@
 
           range = stacked
             ? Math.max.apply(Math, stackRanges) +
-              Math.max.apply(Math, stackRangesNeg)
+            Math.max.apply(Math, stackRangesNeg)
             : max - min;
 
           // as we plot zero/min values a single pixel line, we add a pixel to all other
@@ -2262,7 +2262,7 @@
             result = [],
             value,
             i;
-          for (i = values.length; i--; ) {
+          for (i = values.length; i--;) {
             value = values[i];
             result.push({
               isNull: value === null,
@@ -2707,7 +2707,7 @@
         var targetval = this.values[0],
           x = Math.round(
             this.canvasWidth * ((targetval - this.min) / this.range) -
-              this.options.get("targetWidth") / 2
+            this.options.get("targetWidth") / 2
           ),
           targettop = Math.round(this.canvasHeight * 0.1),
           targetheight = this.canvasHeight - targettop * 2,
@@ -2773,7 +2773,7 @@
         }
 
         if (values.length > 0) {
-          for (i = values.length; i--; ) {
+          for (i = values.length; i--;) {
             total += values[i];
           }
         }
@@ -2799,7 +2799,7 @@
           percent: (this.values[currentRegion] / this.total) * 100,
           color:
             this.options.get("sliceColors")[
-              currentRegion % this.options.get("sliceColors").length
+            currentRegion % this.options.get("sliceColors").length
             ],
           offset: currentRegion,
         };
@@ -2884,7 +2884,7 @@
             )
             .append();
         }
-        for (i = values.length; i--; ) {
+        for (i = values.length; i--;) {
           if (values[i]) {
             // don't render zero values
             shape = this.renderSlice(i).append();
@@ -3129,14 +3129,14 @@
             .drawLine(
               Math.round(
                 (options.get("target") - minValue) * unitSize +
-                  canvasLeft -
-                  size
+                canvasLeft -
+                size
               ),
               Math.round(canvasHeight / 2),
               Math.round(
                 (options.get("target") - minValue) * unitSize +
-                  canvasLeft +
-                  size
+                canvasLeft +
+                size
               ),
               Math.round(canvasHeight / 2),
               options.get("targetColor")
@@ -3487,7 +3487,7 @@
         var shapeseq = this.shapeseq,
           i;
         this.shapes[shape.id] = shape;
-        for (i = shapeseq.length; i--; ) {
+        for (i = shapeseq.length; i--;) {
           if (shapeseq[i] == shapeid) {
             shapeseq[i] = shape.id;
           }
@@ -3502,10 +3502,10 @@
           i,
           first;
 
-        for (i = shapeids.length; i--; ) {
+        for (i = shapeids.length; i--;) {
           shapemap[shapeids[i]] = true;
         }
-        for (i = shapeseq.length; i--; ) {
+        for (i = shapeseq.length; i--;) {
           sid = shapeseq[i];
           if (shapemap[sid]) {
             shapeseq.splice(i, 1);
@@ -3513,7 +3513,7 @@
             first = i;
           }
         }
-        for (i = shapes.length; i--; ) {
+        for (i = shapes.length; i--;) {
           shapeseq.splice(first, 0, shapes[i].id);
           this.shapes[shapes[i].id] = shapes[i];
         }
@@ -3522,7 +3522,7 @@
       insertAfterShape: function (shapeid, shape) {
         var shapeseq = this.shapeseq,
           i;
-        for (i = shapeseq.length; i--; ) {
+        for (i = shapeseq.length; i--;) {
           if (shapeseq[i] === shapeid) {
             shapeseq.splice(i + 1, 0, shape.id);
             this.shapes[shape.id] = shape;
@@ -3534,7 +3534,7 @@
       removeShapeId: function (shapeid) {
         var shapeseq = this.shapeseq,
           i;
-        for (i = shapeseq.length; i--; ) {
+        for (i = shapeseq.length; i--;) {
           if (shapeseq[i] === shapeid) {
             shapeseq.splice(i, 1);
             break;
@@ -3630,10 +3630,10 @@
           lineColor === undefined
             ? ' stroked="false" '
             : ' strokeWeight="' +
-              lineWidth +
-              'px" strokeColor="' +
-              lineColor +
-              '" ';
+            lineWidth +
+            'px" strokeColor="' +
+            lineColor +
+            '" ';
         fill =
           fillColor === undefined
             ? ' filled="false"'
@@ -3682,10 +3682,10 @@
           lineColor === undefined
             ? ' stroked="false" '
             : ' strokeWeight="' +
-              lineWidth +
-              'px" strokeColor="' +
-              lineColor +
-              '" ';
+            lineWidth +
+            'px" strokeColor="' +
+            lineColor +
+            '" ';
         fill =
           fillColor === undefined
             ? ' filled="false"'

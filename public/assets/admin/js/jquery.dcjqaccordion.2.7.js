@@ -127,10 +127,10 @@
             }
             $("> a", this).append(
               ' <span class="' +
-                defaults.classCount +
-                '">' +
-                getCount +
-                "</span>"
+              defaults.classCount +
+              '">' +
+              getCount +
+              "</span>"
             );
           });
         }
@@ -160,9 +160,9 @@
         }
       }
 
-      function linkOut() {}
+      function linkOut() { }
 
-      function menuOver() {}
+      function menuOver() { }
 
       function menuOut() {
         if (defaults.menuClose == true) {

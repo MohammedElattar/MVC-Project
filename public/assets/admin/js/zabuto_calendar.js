@@ -67,8 +67,8 @@ $.fn.zabuto_calendar = function (options) {
 
       var $containerHtml = $(
         '<div class="zabuto_calendar" id="' +
-          $calendarElement.attr("id") +
-          '"></div>'
+        $calendarElement.attr("id") +
+        '"></div>'
       );
       $containerHtml.append($tableObj);
       $containerHtml.append($legendObj);
@@ -91,8 +91,8 @@ $.fn.zabuto_calendar = function (options) {
     function drawLegend($calendarElement) {
       var $legendObj = $(
         '<div class="legend" id="' +
-          $calendarElement.attr("id") +
-          '_legend"></div>'
+        $calendarElement.attr("id") +
+        '_legend"></div>'
       );
       var legend = $calendarElement.data("legendList");
       if (typeof legend == "object" && legend.length > 0) {
@@ -123,11 +123,11 @@ $.fn.zabuto_calendar = function (options) {
                     }
                     $legendObj.append(
                       '<span class="legend-' +
-                        item.type +
-                        '">' +
-                        itemBadge +
-                        itemLabel +
-                        "</span>"
+                      item.type +
+                      '">' +
+                      itemBadge +
+                      itemLabel +
+                      "</span>"
                     );
                   }
                   break;
@@ -142,12 +142,12 @@ $.fn.zabuto_calendar = function (options) {
                   }
                   $legendObj.append(
                     '<span class="legend-' +
-                      item.type +
-                      '"><ul class="legend"><li class="' +
-                      listClassName +
-                      '"></li></u>' +
-                      itemLabel +
-                      "</span>"
+                    item.type +
+                    '"><ul class="legend"><li class="' +
+                    listClassName +
+                    '"></li></u>' +
+                    itemLabel +
+                    "</span>"
                   );
                   break;
                 case "list":
@@ -332,10 +332,10 @@ $.fn.zabuto_calendar = function (options) {
 
             var $dayElement = $(
               '<div id="' +
-                dayId +
-                '" class="day" >' +
-                currDayOfMonth +
-                "</div>"
+              dayId +
+              '" class="day" >' +
+              currDayOfMonth +
+              "</div>"
             );
             $dayElement.data("day", currDayOfMonth);
 
@@ -343,8 +343,8 @@ $.fn.zabuto_calendar = function (options) {
               if (isToday(year, month, currDayOfMonth)) {
                 $dayElement.html(
                   '<span class="badge badge-today">' +
-                    currDayOfMonth +
-                    "</span>"
+                  currDayOfMonth +
+                  "</span>"
                 );
               }
             }
@@ -413,10 +413,10 @@ $.fn.zabuto_calendar = function (options) {
 
       var $modalFade = $(
         '<div class="modal fade" id="' +
-          id +
-          '_modal" tabindex="-1" role="dialog" aria-labelledby="' +
-          id +
-          '_modal_title" aria-hidden="true"></div>'
+        id +
+        '_modal" tabindex="-1" role="dialog" aria-labelledby="' +
+        id +
+        '_modal_title" aria-hidden="true"></div>'
       );
       $modalFade.append($modalDialog);
 
@@ -491,10 +491,10 @@ $.fn.zabuto_calendar = function (options) {
             var dayLabel = $dayElement.data("day");
             $dayElement.html(
               '<span class="badge badge-event' +
-                badgeClass +
-                '">' +
-                dayLabel +
-                "</span>"
+              badgeClass +
+              '">' +
+              dayLabel +
+              "</span>"
             );
           }
 

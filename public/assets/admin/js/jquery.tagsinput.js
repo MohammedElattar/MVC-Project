@@ -1,16 +1,16 @@
 /*
 
-	jQuery Tags Input Plugin 1.3.3
+  jQuery Tags Input Plugin 1.3.3
 	
-	Copyright (c) 2011 XOXCO, Inc
+  Copyright (c) 2011 XOXCO, Inc
 	
-	Documentation for this plugin lives here:
-	http://xoxco.com/clickable/jquery-tags-input
+  Documentation for this plugin lives here:
+  http://xoxco.com/clickable/jquery-tags-input
 	
-	Licensed under the MIT license:
-	http://www.opensource.org/licenses/mit-license.php
+  Licensed under the MIT license:
+  http://www.opensource.org/licenses/mit-license.php
 
-	ben@xoxco.com
+  ben@xoxco.com
 
 */
 
@@ -54,7 +54,7 @@
   $.fn.resetAutosize = function (options) {
     // alert(JSON.stringify(options));
     var minWidth =
-        $(this).data("minwidth") || options.minInputWidth || $(this).width(),
+      $(this).data("minwidth") || options.minInputWidth || $(this).width(),
       maxWidth =
         $(this).data("maxwidth") ||
         options.maxInputWidth ||

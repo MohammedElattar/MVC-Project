@@ -119,7 +119,7 @@
         function (i, val) {
           Gritter["_" + val + "_" + number] = $.isFunction(params[val])
             ? params[val]
-            : function () {};
+            : function () { };
         }
       );
 
@@ -132,9 +132,9 @@
       }
 
       var image_str =
-          image != ""
-            ? '<img src="' + image + '" class="gritter-image" />'
-            : "",
+        image != ""
+          ? '<img src="' + image + '" class="gritter-image" />'
+          : "",
         class_name =
           image != "" ? "gritter-with-image" : "gritter-without-image";
 
@@ -348,10 +348,10 @@
       // callbacks (if passed)
       var before_close = $.isFunction(params.before_close)
         ? params.before_close
-        : function () {};
+        : function () { };
       var after_close = $.isFunction(params.after_close)
         ? params.after_close
-        : function () {};
+        : function () { };
 
       var wrap = $("#gritter-notice-wrapper");
       before_close(wrap);

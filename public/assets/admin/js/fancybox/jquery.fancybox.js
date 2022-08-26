@@ -433,8 +433,8 @@
     //   $.fancybox.play( false ); - stop
     play: function (action) {
       var clear = function () {
-          clearTimeout(F.player.timer);
-        },
+        clearTimeout(F.player.timer);
+      },
         set = function () {
           clear();
 
@@ -691,8 +691,8 @@
       // that can change document height... repeating infinitely
       W.bind(
         "orientationchange.fb" +
-          (isTouch ? "" : " resize.fb") +
-          (current.autoCenter && !current.locked ? " scroll.fb" : ""),
+        (isTouch ? "" : " resize.fb") +
+        (current.autoCenter && !current.locked ? " scroll.fb" : ""),
         F.update
       );
 
@@ -929,11 +929,11 @@
       coming.wrap = $(coming.tpl.wrap)
         .addClass(
           "fancybox-" +
-            (isTouch ? "mobile" : "desktop") +
-            " fancybox-type-" +
-            type +
-            " fancybox-tmp " +
-            coming.wrapCSS
+          (isTouch ? "mobile" : "desktop") +
+          " fancybox-type-" +
+          type +
+          " fancybox-tmp " +
+          coming.wrapCSS
         )
         .appendTo(coming.parent || "body");
 
@@ -1051,7 +1051,7 @@
             .attr("src", "//about:blank")
             .end()
             .empty();
-        } catch (e) {}
+        } catch (e) { }
       });
 
       if (coming.iframe.preload) {
@@ -1223,8 +1223,8 @@
         scrolling === "yes"
           ? "scroll"
           : scrolling === "no"
-          ? "hidden"
-          : scrolling
+            ? "hidden"
+            : scrolling
       );
 
       // Set initial dimensions and start position
@@ -1326,7 +1326,7 @@
 
               origHeight = body.outerHeight(true);
             }
-          } catch (e) {}
+          } catch (e) { }
         }
       } else if (current.autoWidth || current.autoHeight) {
         inner.addClass("fancybox-tmp");
@@ -1489,11 +1489,11 @@
         height > minHeight;
       canExpand = current.aspectRatio
         ? width < origMaxWidth &&
-          height < origMaxHeight &&
-          width < origWidth &&
-          height < origHeight
+        height < origMaxHeight &&
+        width < origWidth &&
+        height < origHeight
         : (width < origMaxWidth || height < origMaxHeight) &&
-          (width < origWidth || height < origHeight);
+        (width < origWidth || height < origHeight);
 
       $.extend(current, {
         dim: {
@@ -2053,10 +2053,10 @@
 
       title = $(
         '<div class="fancybox-title fancybox-title-' +
-          type +
-          '-wrap">' +
-          text +
-          "</div>"
+        type +
+        '-wrap">' +
+        text +
+        "</div>"
       );
 
       switch (type) {
@@ -2158,8 +2158,8 @@
       // http://benalman.com/projects/jquery-misc-plugins/#scrollbarwidth
       $.scrollbarWidth = function () {
         var parent = $(
-            '<div style="width:50px;height:50px;overflow:auto"><div/></div>'
-          ).appendTo("body"),
+          '<div style="width:50px;height:50px;overflow:auto"><div/></div>'
+        ).appendTo("body"),
           child = parent.children(),
           width = child.innerWidth() - child.height(99).innerWidth();
 
@@ -2172,8 +2172,8 @@
     if ($.support.fixedPosition === undefined) {
       $.support.fixedPosition = (function () {
         var elem = $('<div style="position:fixed;top:20px;"></div>').appendTo(
-            "body"
-          ),
+          "body"
+        ),
           fixed = elem[0].offsetTop === 20 || elem[0].offsetTop === 15;
 
         elem.remove();
@@ -2199,8 +2199,8 @@
 
     $(
       "<style type='text/css'>.fancybox-margin{margin-right:" +
-        (w2 - w1) +
-        "px;}</style>"
+      (w2 - w1) +
+      "px;}</style>"
     ).appendTo("head");
   });
 })(window, document, jQuery);

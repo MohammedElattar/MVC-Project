@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------------------
-	Class: prettyPhoto
-	Use: Lightbox clone for jQuery
-	Author: Stephane Caron (http://www.no-margin-for-errors.com)
-	Version: 3.1.5
+  Class: prettyPhoto
+  Use: Lightbox clone for jQuery
+  Author: Stephane Caron (http://www.no-margin-for-errors.com)
+  Version: 3.1.5
 ------------------------------------------------------------------------- */
 (function (e) {
   function t() {
@@ -384,7 +384,7 @@
       {
         hook: "rel",
         animation_speed: "fast",
-        ajaxcallback: function () {},
+        ajaxcallback: function () { },
         slideshow: 5e3,
         autoplay_slideshow: false,
         opacity: 0.8,
@@ -404,8 +404,8 @@
         overlay_gallery: true,
         overlay_gallery_max: 30,
         keyboard_shortcuts: true,
-        changepicturecallback: function () {},
-        callback: function () {},
+        changepicturecallback: function () { },
+        callback: function () { },
         ie6_fallback: true,
         markup:
           '<div class="pp_pic_holder"> 						<div class="ppt"> </div> 						<div class="pp_top"> 							<div class="pp_left"></div> 							<div class="pp_middle"></div> 							<div class="pp_right"></div> 						</div> 						<div class="pp_content_container"> 							<div class="pp_left"> 							<div class="pp_right"> 								<div class="pp_content"> 									<div class="pp_loaderIcon"></div> 									<div class="pp_fade"> 										<a href="#" class="pp_expand" title="Expand the image">Expand</a> 										<div class="pp_hoverContainer"> 											<a class="pp_next" href="#">next</a> 											<a class="pp_previous" href="#">previous</a> 										</div> 										<div id="pp_full_res"></div> 										<div class="pp_details"> 											<div class="pp_nav"> 												<a href="#" class="pp_arrow_previous">Previous</a> 												<p class="currentTextHolder">0/0</p> 												<a href="#" class="pp_arrow_next">Next</a> 											</div> 											<p class="pp_description"></p> 											<div class="pp_social">{pp_social}</div> 											<a class="pp_close" href="#">Close</a> 										</div> 									</div> 								</div> 							</div> 							</div> 						</div> 						<div class="pp_bottom"> 							<div class="pp_left"></div> 							<div class="pp_middle"></div> 							<div class="pp_right"></div> 						</div> 					</div> 					<div class="pp_overlay"></div>',
@@ -475,23 +475,23 @@
       isSet = galleryRegExp.exec(theRel) ? true : false;
       pp_images = isSet
         ? jQuery.map(o, function (t, n) {
-            if (e(t).attr(settings.hook).indexOf(theRel) != -1)
-              return e(t).attr("href");
-          })
+          if (e(t).attr(settings.hook).indexOf(theRel) != -1)
+            return e(t).attr("href");
+        })
         : e.makeArray(e(this).attr("href"));
       pp_titles = isSet
         ? jQuery.map(o, function (t, n) {
-            if (e(t).attr(settings.hook).indexOf(theRel) != -1)
-              return e(t).find("img").attr("alt")
-                ? e(t).find("img").attr("alt")
-                : "";
-          })
+          if (e(t).attr(settings.hook).indexOf(theRel) != -1)
+            return e(t).find("img").attr("alt")
+              ? e(t).find("img").attr("alt")
+              : "";
+        })
         : e.makeArray(e(this).find("img").attr("alt"));
       pp_descriptions = isSet
         ? jQuery.map(o, function (t, n) {
-            if (e(t).attr(settings.hook).indexOf(theRel) != -1)
-              return e(t).attr("title") ? e(t).attr("title") : "";
-          })
+          if (e(t).attr(settings.hook).indexOf(theRel) != -1)
+            return e(t).attr("title") ? e(t).attr("title") : "";
+        })
         : e.makeArray(e(this).attr("title"));
       if (pp_images.length > settings.overlay_gallery_max)
         settings.overlay_gallery = false;
@@ -540,9 +540,9 @@
         .find(".currentTextHolder")
         .text(
           set_position +
-            1 +
-            settings.counter_separator_label +
-            e(pp_images).size()
+          1 +
+          settings.counter_separator_label +
+          e(pp_images).size()
         );
       if (
         typeof pp_descriptions[set_position] != "undefined" &&
@@ -576,8 +576,8 @@
       }
       $pp_pic_holder.fadeIn(function () {
         settings.show_title &&
-        pp_titles[set_position] != "" &&
-        typeof pp_titles[set_position] != "undefined"
+          pp_titles[set_position] != "" &&
+          typeof pp_titles[set_position] != "undefined"
           ? $ppt.html(unescape(pp_titles[set_position]))
           : $ppt.html(" ");
         imgPreloader = "";
