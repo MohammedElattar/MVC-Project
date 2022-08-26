@@ -45,7 +45,7 @@
         $(document).ready(function() {
             var unique_id = $.gritter.add({
                 // (string | mandatory) the heading of the notification
-                title: 'Welcome to Shpping Page!',
+                title: 'Welcome to Shopping Page!',
                 // (string | mandatory) the text inside the notification
                 text: 'This area controlls everything in your website',
                 // (string | optional) the image to display on the left

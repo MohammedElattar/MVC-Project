@@ -212,4 +212,23 @@ function deleteProduct(ev) {
             },
         });
     }
+
+}
+function editProductInfo(event) {
+    let info = document.querySelector(".edit_product");
+    event.preventDefault()
+
+    if (info.classList.contains("hide")) {
+        info.classList.remove("hide");
+        let editProductForm = $("dit-product-form");
+
+        //get Data
+        $.ajax({
+            type: "POST",
+            url: editProductForm.attr("action"),
+            success: function (res) {
+            }
+        });
+    }
+    else info.classList.add("hide");
 }

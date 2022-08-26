@@ -9,20 +9,26 @@ class Ajax extends Controller
     {
         if ($this->logged()) {
             $params = json_decode($params, true);
-            // print_r($params);
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $res = [];
                 $category = $this->load_model("Category");
                 $_POST = json_decode(file_get_contents('php://input'), true);
                 if (isset($params[2]) && $params[2] == 'add') {
+
                     if (!isset($params[3]))
+
                         $res = json_encode($category->add($_POST));
                     else {
+
                         if ($params[3] == 'get_sub_categories') {
+
                             $str = "<option value='0'>Main Category</option>";
+
                             foreach ($category->show("SELECT id , name FROM categories WHERE disabled = 0", [], 1) as $i) {
                                 $str .= sprintf("<option value='%s'>%s</option>", $i['id'], $i['name']);
                             }
+
                             $res = $str;
                         }
                     }
@@ -73,14 +79,10 @@ class Ajax extends Controller
             if ($this->isPost()) {
                 $res = [];
                 $product = $this->load_model("Product");
-                // ! Remove that file because it cause a bug when we send files to PHP 
+                // ! Remove that line because it cause a bug when we send files to PHP 
                 // $_POST = json_decode(file_get_contents('php://input'), true);
-                if ($params[2] == 'add') {
+                if (isset($params[2]) && $params[2] == 'add') {
                     $res = json_encode($product->add($_POST, $_FILES));
-                // for ($i = 0; $i < count($_FILES); $i++) {
-                //     print_r($_FILES[$i]);
-                // }
-                // print_r($_POST);
                 }
                 else if (isset($params[2]) && $params[2] == 'edit_status') {
                     $res = json_encode($product->editStatus($_POST));

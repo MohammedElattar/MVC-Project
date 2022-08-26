@@ -29,6 +29,7 @@
                         </thead>
                         <tbody class="table-body text-center">
                             <?= $data['data'] ?>
+                            <?php  $data=0?>
                         </tbody>
                     </table>
                 </div><!-- /content-panel -->
@@ -69,12 +70,39 @@
                     </form>
                 </div>
                 <div class="edit_product hide">
-                    <form class="form-inline">
-                        <div class="form-group mb-2">
-                            <label for="name" class="sr-only">Name</label>
-                            <input type="text" name="name" class="form-control-plaintext" id="productName">
+                    <form action="<?=ROOT?>ajax/products/edit_info" method="POST" class="edit-product-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2" link="<?= ROOT ?>ajax/products/edit_info">Edit Product</button>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="text" name="description" id="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" name="quantity" id="quantity" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" name="price" id="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="main_image">Main Image</label>
+                            <input type="file" name="main_image" id="main_image" accept=".jpeg , .png  , .jpg">
+                        </div>
+                        <div class="form-group">
+                            <label for="optional_images">Optional Images</label>
+                            <input type="file" id="optional_images" accept=".jpeg , .png  , .jpg" multiple>
+                        </div>
+                        <div class="form-group">
+                            <label for="category_name">Category Name</label>
+                            <select name="category_id" id="category_name_edit"></select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success" id="add-product-send" link="<?= ROOT ?>ajax/products/add">Edit Product</button>
+                            <button type="button" class="btn btn-danger close-product" id="close">Close</button>
+                        </div>
                     </form>
                 </div>
                 <button class="btn btn-primary add-product-btn" style="margin: 20px 0;" onclick="addProduct()"><i class="fa fa-plus"></i> Add new Product</button>
@@ -94,4 +122,7 @@
             })
 
             // Edit Div Information
+            $(".close-product").on("click" , ()=>{
+                $(".edit_product").addClass("hide");
+            })
         </script>
