@@ -29,9 +29,9 @@ class Product
         $res = [];
 
         $product_name = htmlspecialchars(trim($data['name']));
-        $description = htmlspecialchars(trim($data['name']));
-        $quantity = $data['quantity'];
-        $price = $data['price'];
+        $description = htmlspecialchars(trim($data['description']));
+        $quantity = htmlspecialchars($data['quantity']);
+        $price = htmlspecialchars($data['price']);
         $category_id = $data['category_id'];
 
         // photos
@@ -67,7 +67,7 @@ class Product
                     $res['image-error'] .= "photo_$photos_keys[$i] ";
                 }
                 else {
-                    if ($FILES[$photos_keys[$i]]['size'] > 4194304) {
+                    if ($FILES[$photos_keys[$i]]['size'] > 4194304) { // 4 mega in bytes
                         if (!isset($res['image-size']))
                             $res['image-size'] = '';
                         $res['image-size'] .= "photo_$photos_keys[$i] ";
@@ -94,6 +94,10 @@ class Product
                 $src = $name[0];
                 $src = rand(1, 1e10) . $src . rand(1, 1e10);
                 $name = $src . "." . $name[1];
+                // create the directory if not exists
+                if (!is_dir('../public/uploads')) {
+                    mkdir("../public/uploads", 0755);
+                }
                 move_uploaded_file($tmp_name, "../public/uploads/$name");
                 $photos_keys[$i] = $name;
             }
@@ -102,28 +106,28 @@ class Product
 
             $this->db->write(
                 "INSERT INTO
-                    products
-                    (name , description , userid , category_id , quantity , price , main_image , other_images)
-                VALUES 
-                    (?,?,?,?,?,?,?,?)",
+						products
+						(name , description , userid , category_id , quantity , price , main_image , other_images)
+					VALUES 
+						(?,?,?,?,?,?,?,?)",
             [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price, $main_image, json_encode($photos_keys)]
             );
             $str = '';
             foreach ($this->show() as $i) {
                 $str .= sprintf(
                     '<tr node-%s>
-                                <td>%s</td>
-                                <td>%s</td>
-                                <td>%s</td>
-                                <td>%s</td>
-                                <td>%s</td>
-                                <td>%s</td>
-                                <td class="text-center">
-                                    <a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" data-id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
-                                    <a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" data-id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
-                                </td>
-                            </tr>
-                    ',
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td class="text-center">
+											<a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
+											<a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
+										</td>
+									</tr>
+						',
                     $i['id'],
                     $i['name'],
                     $i['quantity'],
@@ -165,33 +169,85 @@ class Product
         $res['success'] = '1';
         return $res;
     }
-    public function edit_name(array $data)
+    public function edit_info(array $data)
     {
         /**
-         * Edit Name Function
+         * Edit Product Info
          * 
-         * This function is used to edit category name
+         * @param array $data Which have [name , description , quantity , price , category id]
          * 
-         * @param array $data Which have 2 properties [$name , $id]
+         * @return array $res Results of Updating operation
          * 
-         * @return array $res Results of editing operation
          */
 
         $res = [];
-        $name = trim($data['name']);
-        $id = $data['id'];
-        if (!$name || !preg_match("/^[a-zA-Z]+$/", $name))
-            $res['valid-name'] = '1';
+
+        $product_name = htmlspecialchars(trim($data['name']));
+        $description = htmlspecialchars(trim($data['description']));
+        $quantity = htmlspecialchars($data['quantity']);
+        $price = htmlspecialchars($data['price']);
+        $category_id = $data['category_id'];
+
+
+        if (!$product_name || !preg_match("/^[a-zA-Z]+$/", $product_name))
+            $res['name'] = '1';
+        if (!$description)
+            $res['description'] = '1';
+        if ($quantity <= 0)
+            $res['quantity'] = '1';
+        if ($price <= 0)
+            $res['price'] = '1';
+
         if (!$res) {
-            if ($this->db->read("SELECT name FROM categories WHERE name=? AND id != ?", [$name, $id])[0])
-                $res['exists'] = '1';
-            else {
-                $this->db->write("UPDATE categories SET name=? WHERE id =?", [$name, $id]);
-                $res['success'] = '1';
-                $res['data'] = $this->show();
+
+
+            $this->db->write(
+                "INSERT INTO
+						products
+						(name , description , userid , category_id , quantity , price , main_image , other_images)
+					VALUES 
+						(?,?,?,?,?,?,?,?)",
+            [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price]
+            );
+            $str = '';
+            foreach ($this->show() as $i) {
+                $str .= sprintf(
+                    '<tr node-%s>
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td>%s</td>
+										<td class="text-center">
+											<a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" data-id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
+											<a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" data-id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
+										</td>
+									</tr>
+						',
+                    $i['id'],
+                    $i['name'],
+                    $i['quantity'],
+                    $i['price'],
+                    sprintf("<img src='%s' style='width:100px ; height:50px'>", ROOT . "uploads/" . $i['main_image']),
+                    $i['cat_name'],
+                    sprintf(
+                    "<a href='%s' class='btn %s status' data-id='%s' onclick='editProductStatus(event)'>%s</a>",
+
+                    ROOT . "ajax/categories/edit_status",
+                    $i['status'] == 0 ? "btn-primary" : ($i['status'] == 1 ? "btn-success" : "btn-danger"),
+                    $i['id'],
+                    $i['status'] == 0 ? "Normal" : ($i['status'] == 1 ? "Sale" : "New"),
+                ),
+                    ROOT,
+                    $i['id'],
+                    ROOT,
+                    $i['id']
+                );
             }
+            $res['success'] = '1';
+            $res['product'] = $str;
         }
-        $res = json_encode($res);
         return $res;
     }
     public function delete(array $data)

@@ -74,9 +74,11 @@ class Ajax extends Controller
 
     public function products($params = "")
     {
+
         if ($this->logged()) {
             $params = json_decode($params, true);
             if ($this->isPost()) {
+
                 $res = [];
                 $product = $this->load_model("Product");
                 // ! Remove that line because it cause a bug when we send files to PHP 
@@ -88,7 +90,27 @@ class Ajax extends Controller
                     $res = json_encode($product->editStatus($_POST));
                 }
                 else if (isset($params[2]) && $params[2] == 'edit_info') {
-                    $res = json_encode($product->editInfo($_POST));
+                    if (isset($params[3]) && $params[3] == 'get_contents') {
+                        $_POST = json_decode(file_get_contents('php://input'), true);
+                        $id = $_POST['id'];
+                        $category = $this->load_model("Category");
+                        $product_info = $product->show("SELECT id , name , description , quantity , price , category_id FROM products WHERE id =?", [$id]);
+                        $cats = '';
+                        foreach ($category->show("SELECT * FROM CATEGORIES", [], true) as $i) {
+                            $cats .= sprintf('<option value="%s" %s>%s</option>', $i['id'], $i['id'] == $product_info['category_id'] ? "selected" : "", $i['name']);
+                        }
+                        for ($i = 0; $i < 6; $i++)
+                            unset($product_info[$i]);
+                        unset($product_info['id']);
+                        $product_info['category_id'] = $cats;
+                        $res = $product_info;
+                        $res = json_encode($res);
+                    }
+                    else {
+                        $res = json_encode($product->editInfo($_POST));
+                    }
+                }
+                else if (isset($params[2]) && $params[2] == 'edit_images') {
                 }
                 else if (isset($params[2]) && $params[2] == 'delete') {
                     $product->delete($_POST);

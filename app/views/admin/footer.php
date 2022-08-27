@@ -25,8 +25,6 @@
     <script src="<?= ASSETS_ADMIN ?>js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="<?= ASSETS_ADMIN ?>js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="<?= ASSETS_ADMIN ?>js/jquery.scrollTo.min.js"></script>
-    <script src="<?= ASSETS_ADMIN ?>js/jquery.nicescroll.js" type="text/javascript"></script>
-
     <script src="<?= ASSETS_ADMIN ?>js/jquery.sparkline.js"></script>
 
 
@@ -110,3 +108,25 @@
     </body>
 
     </html>
+
+<script>
+    var nice = 
+    $(this.refs.container).niceScroll({
+        cursorcolor: '#f16221',
+        cursorwidth: '14',
+        cursorminheight: '64', 
+        scrollspeed: '50',
+        autohidemode: 'false',
+        overflowy: 'false'
+    });
+
+var _super = nice.getContentSize;
+
+nice.getContentSize = function () {
+    var page = _super.call(nice);
+    page.h = nice.win.height();
+    return page;
+}
+
+$('.nicescroll-rails.nicescroll-rails-vr').remove();
+</script>

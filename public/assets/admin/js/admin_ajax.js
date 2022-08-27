@@ -200,7 +200,7 @@ function deleteProduct(ev) {
     let element = ev.currentTarget;
     if (confirm("Deletion Confirm ? ")) {
         let formdata = new FormData();
-        formdata.append("id", element.getAttribute("id"));
+        formdata.append("id", element.getAttribute("data-id"));
         formdata = JSON.stringify(Object.fromEntries(formdata.entries()));
         $.ajax({
             type: "POST",
@@ -217,18 +217,37 @@ function deleteProduct(ev) {
 function editProductInfo(event) {
     let info = document.querySelector(".edit_product");
     event.preventDefault()
-
     if (info.classList.contains("hide")) {
         info.classList.remove("hide");
-        let editProductForm = $("dit-product-form");
-
-        //get Data
+        let editProductForm = $(".edit-product-form");
+        let id = new FormData();
+        id.append("id", event.currentTarget.getAttribute("id"));
+        //get contents from db
+        let resutls = []
         $.ajax({
             type: "POST",
-            url: editProductForm.attr("action"),
+            url: "/E_Commerce/public/ajax/products/edit_info/get_contents",
+            data: JSON.stringify(Object.fromEntries(id.entries())),
             success: function (res) {
+                res = JSON.parse(res);
+                [...$(".edit-product-form :input")].forEach((e) => {
+                    if (e.attributes['name']) {
+                        let val = e.attributes['name'].value;
+                        if (val == 'category_id') e.innerHTML = res[val];
+                        else if (val == 'description') e.textContent = res['description'];
+                        else e.setAttribute("value", res[val])
+                    }
+                })
+                console.log(res)
+            },
+            error: function (XHRStatus) {
+                console.log(XHRStatus)
             }
         });
+
+
+        //get Data
+
     }
     else info.classList.add("hide");
 }
