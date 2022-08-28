@@ -87,6 +87,8 @@ class Product
 
             // upload images first 
 
+            // what to do if the product is already exists
+
             $main_image_name = '';
             for ($i = 0; $i < count($FILES); $i++) {
                 $tmp_name = $FILES[$photos_keys[$i]]['tmp_name'];
@@ -123,8 +125,8 @@ class Product
 										<td>%s</td>
 										<td>%s</td>
 										<td class="text-center">
-											<a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
-											<a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
+											<a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" data-id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
+											<a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" data-id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
 										</td>
 									</tr>
 						',
@@ -252,7 +254,21 @@ class Product
     }
     public function delete(array $data)
     {
-        $res = $this->db->remove("SELECT id FROM categories WHERE id=?", [$data['id']], "DELETE FROM categories WHERE id=?", [$data['id']]);
+        $main_image = '';
+        $res = [];
+        $info = $this->db->read("SELECT main_image , other_images FROM products WHERE id =?", [$data['id']], true)[0];
+        if (isset($info[0])) {
+            $main_image = $info[0]['main_image'];
+            unlink("../public/uploads/$main_image");
+            if ($info[0]['other_images']) {
+                foreach (json_decode($info[0]['other_images'], true) as $i) {
+                    unlink("../public/uploads/$i");
+                }
+            }
+        }
+        else
+            $res['not-found'] = '1';
+        $res = $this->db->remove("SELECT id FROM products WHERE id=?", [$data['id']], "DELETE FROM products WHERE id=?", [$data['id']]);
         $res['data'] = $this->show();
         $res = json_encode($res);
         echo $res;

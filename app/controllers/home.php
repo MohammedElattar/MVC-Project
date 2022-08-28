@@ -13,8 +13,5 @@ class Home extends Controller
             $data['title'] = 'Login';
             $this->view("eshop/login", $data);
         }
-    // echo '<pre>';
-    // print_r($_SESSION);
-    // echo '</pre>';
     }
 }

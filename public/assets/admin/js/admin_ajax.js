@@ -210,6 +210,7 @@ function deleteProduct(ev) {
             success: function (res) {
                 if ("success" in res) $(".table-body").html(res["data"]);
             },
+            error: function (XHRStatus) { console.log(XHRStatus.responseText) }
         });
     }
 
@@ -221,7 +222,7 @@ function editProductInfo(event) {
         info.classList.remove("hide");
         let editProductForm = $(".edit-product-form");
         let id = new FormData();
-        id.append("id", event.currentTarget.getAttribute("id"));
+        id.append("id", event.currentTarget.getAttribute("data-id"));
         //get contents from db
         let resutls = []
         $.ajax({

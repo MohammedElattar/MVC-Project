@@ -70,4 +70,33 @@ $(function () {
         });
     }
 
+
+
 });
+function getProducts() {
+    let parent = $(".features_items")
+    $.ajax({
+        type: "POST",
+        url: parent.attr("link"),
+        success: function (res) {
+            res = JSON.parse(res)
+            parent.append(res);
+        }
+    });
+}
+function getSingleProduct(event) {
+    event.preventDefault()
+    let id = event.currentTarget.getAttribute("data-id");
+    $.ajax({
+        type: "POST",
+        url: "url",
+        data: "data",
+        dataType: "dataType",
+        success: function (response) {
+
+        }
+    });
+}
+if (document.title == "Home | E-Shopper") {
+    getProducts()
+}

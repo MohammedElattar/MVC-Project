@@ -108,25 +108,3 @@
     </body>
 
     </html>
-
-<script>
-    var nice = 
-    $(this.refs.container).niceScroll({
-        cursorcolor: '#f16221',
-        cursorwidth: '14',
-        cursorminheight: '64', 
-        scrollspeed: '50',
-        autohidemode: 'false',
-        overflowy: 'false'
-    });
-
-var _super = nice.getContentSize;
-
-nice.getContentSize = function () {
-    var page = _super.call(nice);
-    page.h = nice.win.height();
-    return page;
-}
-
-$('.nicescroll-rails.nicescroll-rails-vr').remove();
-</script>

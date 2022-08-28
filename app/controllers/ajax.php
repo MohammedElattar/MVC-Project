@@ -5,6 +5,50 @@ class Ajax extends Controller
     {
         header("Location:" . ROOT);
     }
+    public function home($params)
+    {
+        $params = json_decode($params, true);
+        if ($this->logged()) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $res = [];
+                if (isset($params[2]) && $params[2] == 'get_products') {
+                    $product = $this->load_model("Product");
+                    $data = $product->show();
+                    $str = '';
+                    foreach ($data as $i) {
+                        $str .= sprintf('<div class="col-sm-4">
+						<div class="product-image-wrapper">
+							<div class="single-products">
+								<div class="productinfo text-center" onclick="getSingleProduct">
+									<img src = %s alt="Product" onclick="getSingleProduct(event)" />
+									<h2 onclick="getSingleProduct(event)">%s</h2>
+									<p>%s</p>
+									<a href="#" class="btn btn-default add-to-cart" data-id=%s><i class="fa fa-shopping-cart"></i>Add to cart</a>
+								</div>
+							</div>
+							<div class="choose">
+								<ul class="nav nav-pills nav-justified">
+									<li><a href="#"><i class="fa fa-plus-square" data-id=%s></i>Add to wishlist</a></li>
+									<li><a href="#"><i class="fa fa-plus-square" data-id=%s></i>Add to compare</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>', "../public/uploads/" . $i['main_image'], $i['name'], $i['description'], $i['id'], $i['id'], $i['id']);
+
+                    }
+                    $res = $str;
+                }
+                if ($res) {
+                    $res = json_encode($res);
+                    echo $res;
+                }
+            }
+            else
+                header("Location:" . ROOT);
+        }
+        else
+            header("Location:" . ROOT . "login");
+    }
     public function categories($params = "")
     {
         if ($this->logged()) {
@@ -113,7 +157,7 @@ class Ajax extends Controller
                 else if (isset($params[2]) && $params[2] == 'edit_images') {
                 }
                 else if (isset($params[2]) && $params[2] == 'delete') {
-                    $product->delete($_POST);
+                    $product->delete(json_decode(file_get_contents('php://input'), true));
                 }
                 else if (isset($params[2]) && $params[2] == 'get_content') {
                     $content = $product->get_content($_POST);
@@ -129,8 +173,8 @@ class Ajax extends Controller
                                 <td>%s</td>
                                 <td>%s</td>
                                 <td class="text-center">
-                                    <a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
-                                    <a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
+                                    <a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" data-id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
+                                    <a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" data-id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
                                 </td>
                             </tr>
                     ',

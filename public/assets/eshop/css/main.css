@@ -836,6 +836,14 @@ h2.title {
 .single-products {
   position: relative;
 }
+.single-products img:hover {
+  position: relative;
+  cursor: pointer;
+}
+.single-products h2:hover {
+  position: relative;
+  cursor: pointer;
+}
 
 .new,
 .sale {

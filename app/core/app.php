@@ -27,12 +27,13 @@ class App
             }
         }
         $this->params = $url ? [json_encode($url)] : ['home'];
+        // * Now working in json format 
         // $this->params = json_encode($this->params);
         // print_r($this->params);
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
-    private function parseUrl()
+    private function parseUrl(): array
     {
         $url = isset($_GET['url']) && $_GET['url'] ? $_GET['url'] : 'home';
         $url = explode('/', trim($url, " "));
