@@ -19,7 +19,7 @@ class Ajax extends Controller
                         $str .= sprintf('<div class="col-sm-4">
 						<div class="product-image-wrapper">
 							<div class="single-products">
-								<div class="productinfo text-center" onclick="getSingleProduct">
+								<div class="productinfo text-center" onclick="location.href.replace(%s)">
 									<img src = %s alt="Product" onclick="getSingleProduct(event)" />
 									<h2 onclick="getSingleProduct(event)">%s</h2>
 									<p>%s</p>
@@ -33,7 +33,7 @@ class Ajax extends Controller
 								</ul>
 							</div>
 						</div>
-					</div>', "../public/uploads/" . $i['main_image'], $i['name'], $i['description'], $i['id'], $i['id'], $i['id']);
+					</div>', ROOT . "product_details/home/slag=" . $i['id'], "../public/uploads/" . $i['main_image'], $i['name'], $i['description'], $i['id'], $i['id'], $i['id']);
 
                     }
                     $res = $str;

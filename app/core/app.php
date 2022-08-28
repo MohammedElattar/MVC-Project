@@ -26,7 +26,8 @@ class App
                 unset($url[1]);
             }
         }
-        $this->params = $url ? [json_encode($url)] : ['home'];
+        // print_r($url);
+        $this->params = $url ? [json_encode($url)] : [json_encode('home')];
         // * Now working in json format 
         // $this->params = json_encode($this->params);
         // print_r($this->params);
