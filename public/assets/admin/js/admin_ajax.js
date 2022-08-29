@@ -140,7 +140,7 @@ function editCategoryStatus(ev) {
             $(".table-body").html(res["data"]);
         },
         error: function (a, b, c) {
-            // console.log(a, b, c);
+            console.log(a, b, c);
         },
     });
 }
@@ -184,11 +184,12 @@ function addProduct() {
             contentType: false,
             cache: false,
             success: function (res) {
+                console.log(res)
                 res = JSON.parse(res);
                 if ("success" in res) {
                     $(".table-body").html(res["product"]);
                 }
-            },
+            }, error: function (XHRStatus) { console.log(XHRStatus) }
         });
         // * we use XMLHttpRequest Object instead
     });
@@ -208,6 +209,7 @@ function deleteProduct(ev) {
             data: formdata,
             dataType: "json",
             success: function (res) {
+                console.log(res)
                 if ("success" in res) $(".table-body").html(res["data"]);
             },
             error: function (XHRStatus) { console.log(XHRStatus.responseText) }
@@ -216,19 +218,20 @@ function deleteProduct(ev) {
 
 }
 function editProductInfo(event) {
+    event.preventDefault();
     let info = document.querySelector(".edit_product");
-    event.preventDefault()
     if (info.classList.contains("hide")) {
         info.classList.remove("hide");
-        let editProductForm = $(".edit-product-form");
-        let id = new FormData();
-        id.append("id", event.currentTarget.getAttribute("data-id"));
+        let editProductForm = document.querySelector(".edit-product-form");
+        let id = event.currentTarget.getAttribute("data-id");
+        let formdata = new FormData();
+        formdata.append("id", event.currentTarget.getAttribute("data-id"));
         //get contents from db
         let resutls = []
         $.ajax({
             type: "POST",
             url: "/E_Commerce/public/ajax/products/edit_info/get_contents",
-            data: JSON.stringify(Object.fromEntries(id.entries())),
+            data: JSON.stringify(Object.fromEntries(formdata.entries())),
             success: function (res) {
                 res = JSON.parse(res);
                 [...$(".edit-product-form :input")].forEach((e) => {
@@ -239,7 +242,7 @@ function editProductInfo(event) {
                         else e.setAttribute("value", res[val])
                     }
                 })
-                console.log(res)
+
             },
             error: function (XHRStatus) {
                 console.log(XHRStatus)
@@ -247,7 +250,23 @@ function editProductInfo(event) {
         });
 
 
-        //get Data
+        editProductForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            let formdata = new FormData(editProductForm);
+            formdata.append("id", id);
+            formdata = JSON.stringify(Object.fromEntries(formdata.entries()))
+            $.ajax({
+                type: "POST",
+                url: editProductForm.getAttribute("action"),
+                data: formdata,
+                success: function (res) {
+                    res = JSON.parse(res)
+                    if ("success" in res) {
+                        $(".table-body").html(res['product']);
+                    }
+                }
+            });
+        })
 
     }
     else info.classList.add("hide");

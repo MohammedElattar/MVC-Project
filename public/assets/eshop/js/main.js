@@ -1,7 +1,5 @@
 /*price range*/
-/**
- *All Functions Used Here are in functions.js file
- */
+
 $("#sl2").slider();
 
 var RGBChange = function () {

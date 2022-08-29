@@ -92,7 +92,7 @@
                             <select name="category_id" id="category_name_edit"></select>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success" id="add-product-send" link="<?= ROOT ?>ajax/products/add">Edit Product</button>
+                            <button type="submit" class="btn btn-success" id="add-product-send">Edit Product</button>
                             <button type="button" class="btn btn-danger close-product" id="close">Close</button>
                         </div>
                     </form>

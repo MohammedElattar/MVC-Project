@@ -16,7 +16,7 @@ class Admin extends Controller
         else
             header("Location:" . ROOT);
     }
-    public function categories($param = "")
+    public function categories($params)
     {
         /**
          * Categories Function
@@ -26,10 +26,10 @@ class Admin extends Controller
          * @param string $param The Operation to do on categories
          * 
          */
-
+        $params = json_decode($params);
         if ($this->logged()) {
             $category = $this->load_model("Category");
-            if ($param == 'home') {
+            if (is_string($params) && $params == 'home') {
                 $data['title'] = 'Categories';
                 $data['data'] = $category->show();
                 $this->view("admin/categories", $data);
@@ -41,12 +41,12 @@ class Admin extends Controller
             header("Location:" . ROOT);
     }
 
-    public function products($param = "")
+    public function products($params)
     {
         if ($this->logged()) {
             $product = $this->load_model("Product");
-            // var_dump($product);
-            if ($param == 'home') {
+            $params = json_decode($params);
+            if (is_string($params) && $params == 'home') {
                 $data['title'] = "Products";
                 $str = '';
                 foreach ($product->show() as $i) {

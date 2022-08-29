@@ -8,6 +8,7 @@ class App
 
     function __construct()
     {
+
         $url = $this->parseUrl();
         if (isset($url[sizeof($url) - 1]) && !$url[sizeof($url) - 1])
             unset($url[sizeof($url) - 1]);
@@ -26,7 +27,6 @@ class App
                 unset($url[1]);
             }
         }
-        // print_r($url);
         $this->params = $url ? [json_encode($url)] : [json_encode('home')];
         // * Now working in json format 
         // $this->params = json_encode($this->params);
@@ -37,6 +37,10 @@ class App
     private function parseUrl(): array
     {
         $url = isset($_GET['url']) && $_GET['url'] ? $_GET['url'] : 'home';
+        foreach ($_GET as $i => $j) {
+            if ($i != 'url')
+                $url .= "/$i=$j";
+        }
         $url = explode('/', trim($url, " "));
         return $url;
     }

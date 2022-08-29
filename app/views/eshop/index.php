@@ -220,7 +220,7 @@ $this->view("eshop/header", $data);
 				</div>
 			</div>
 			<div class="col-sm-9 padding-right">
-				<div class="features_items" link="<?=ROOT?>ajax/home/get_products" onload="getProducts()">
+				<div class="features_items" link="<?=ROOT?>ajax/home/get_limit_products" onload="getProducts()">
 					<!--features_items-->
 					<h2 class="title text-center">Products</h2>
 					<!--We get Content From Ajax Call in ajax.js -->

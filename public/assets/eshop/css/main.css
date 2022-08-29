@@ -1180,11 +1180,13 @@ h2.title {
 
 #similar-product .carousel-inner .item {
   padding-left: 0px;
+  display: flex;
 }
 
 #similar-product .carousel-inner .item img {
   display: inline-block;
   margin-left: 15px;
+  height: 100%;
 }
 
 .item-control {

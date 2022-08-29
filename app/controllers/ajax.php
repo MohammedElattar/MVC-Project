@@ -11,17 +11,21 @@ class Ajax extends Controller
         if ($this->logged()) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $res = [];
-                if (isset($params[2]) && $params[2] == 'get_products') {
+                if (isset($params[2]) && ($params[2] == 'get_limit_products' || $params[2] == "get_all_products")) {
                     $product = $this->load_model("Product");
-                    $data = $product->show();
+                    $query = "SELECT * FROM products";
+                    $query .= $params[2] == "get_limit_products" ? " LIMIT 10" : "";
+                    $data = $product->show($query, []);
                     $str = '';
                     foreach ($data as $i) {
                         $str .= sprintf('<div class="col-sm-4">
 						<div class="product-image-wrapper">
 							<div class="single-products">
-								<div class="productinfo text-center" onclick="location.href.replace(%s)">
-									<img src = %s alt="Product" onclick="getSingleProduct(event)" />
-									<h2 onclick="getSingleProduct(event)">%s</h2>
+								<div class="productinfo text-center">
+                                    <a href="%s">
+									<img src = %s alt="Product"/>
+                                    </a>
+									<h2>%s</h2>
 									<p>%s</p>
 									<a href="#" class="btn btn-default add-to-cart" data-id=%s><i class="fa fa-shopping-cart"></i>Add to cart</a>
 								</div>
@@ -33,7 +37,7 @@ class Ajax extends Controller
 								</ul>
 							</div>
 						</div>
-					</div>', ROOT . "product_details/home/slag=" . $i['id'], "../public/uploads/" . $i['main_image'], $i['name'], $i['description'], $i['id'], $i['id'], $i['id']);
+					</div>', ROOT . "single_product/?slag=" . $i['slag'] . "&id=" . $i['id'], "../public/uploads/" . $i['main_image'], $i['name'], $i['description'], $i['id'], $i['id'], $i['id']);
 
                     }
                     $res = $str;
@@ -134,8 +138,8 @@ class Ajax extends Controller
                     $res = json_encode($product->editStatus($_POST));
                 }
                 else if (isset($params[2]) && $params[2] == 'edit_info') {
+                    $_POST = json_decode(file_get_contents('php://input'), true);
                     if (isset($params[3]) && $params[3] == 'get_contents') {
-                        $_POST = json_decode(file_get_contents('php://input'), true);
                         $id = $_POST['id'];
                         $category = $this->load_model("Category");
                         $product_info = $product->show("SELECT id , name , description , quantity , price , category_id FROM products WHERE id =?", [$id]);
@@ -151,7 +155,8 @@ class Ajax extends Controller
                         $res = json_encode($res);
                     }
                     else {
-                        $res = json_encode($product->editInfo($_POST));
+                        $res = json_encode($product->edit_info($_POST));
+                    // echo "Hi from ajax edit info";
                     }
                 }
                 else if (isset($params[2]) && $params[2] == 'edit_images') {

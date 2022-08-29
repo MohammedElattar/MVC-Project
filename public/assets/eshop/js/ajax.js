@@ -84,19 +84,6 @@ function getProducts() {
         }
     });
 }
-function getSingleProduct(event) {
-    event.preventDefault()
-    let id = event.currentTarget.getAttribute("data-id");
-    $.ajax({
-        type: "POST",
-        url: "url",
-        data: "data",
-        dataType: "dataType",
-        success: function (response) {
-
-        }
-    });
-}
-if (document.title == "Home | E-Shopper") {
+if (document.title == "Home | E-Shopper" || document.title == 'Shop | E-Shopper') {
     getProducts()
 }

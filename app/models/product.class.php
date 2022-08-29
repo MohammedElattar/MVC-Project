@@ -109,10 +109,10 @@ class Product
             $this->db->write(
                 "INSERT INTO
 						products
-						(name , description , userid , category_id , quantity , price , main_image , other_images)
+						(name , description , userid , category_id , quantity , price , main_image , other_images , slag)
 					VALUES 
-						(?,?,?,?,?,?,?,?)",
-            [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price, $main_image, json_encode($photos_keys)]
+						(?,?,?,?,?,?,?,?,?)",
+            [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price, $main_image, json_encode($photos_keys), str_replace(" ", "-", $description)]
             );
             $str = '';
             foreach ($this->show() as $i) {
@@ -201,32 +201,26 @@ class Product
             $res['price'] = '1';
 
         if (!$res) {
-
-
             $this->db->write(
-                "INSERT INTO
-						products
-						(name , description , userid , category_id , quantity , price , main_image , other_images)
-					VALUES 
-						(?,?,?,?,?,?,?,?)",
-            [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price]
+                "UPDATE products SET name = ? , description = ? , userid=? , category_id=? ,quantity=? , price=? , slag=? WHERE id =?",
+            [$product_name, $description, $_SESSION['data']['id'], $category_id, $quantity, $price, str_replace(" ", "-", $description), $data['id']]
             );
             $str = '';
             foreach ($this->show() as $i) {
                 $str .= sprintf(
                     '<tr node-%s>
-										<td>%s</td>
-										<td>%s</td>
-										<td>%s</td>
-										<td>%s</td>
-										<td>%s</td>
-										<td>%s</td>
-										<td class="text-center">
-											<a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" data-id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
-											<a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" data-id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
-										</td>
-									</tr>
-						',
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td class="text-center">
+                            <a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" data-id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
+                            <a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" data-id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
+                        </td>
+                    </tr>
+                    ',
                     $i['id'],
                     $i['name'],
                     $i['quantity'],
@@ -268,8 +262,47 @@ class Product
         }
         else
             $res['not-found'] = '1';
-        $res = $this->db->remove("SELECT id FROM products WHERE id=?", [$data['id']], "DELETE FROM products WHERE id=?", [$data['id']]);
-        $res['data'] = $this->show();
+        if (!$res) {
+            $this->db->remove("SELECT id FROM products WHERE id=?", [$data['id']], "DELETE FROM products WHERE id=?", [$data['id']]);
+            $str = '';
+            foreach ($this->show() as $i) {
+                $str .= sprintf(
+                    '<tr node-%s>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td>%s</td>
+                        <td class="text-center">
+                            <a href="%sajax/products/edit_info" class="btn btn-primary btn-xs edit" data-id="%s" onclick="editProductInfo(event)"><i class="fa fa-edit"></i></a>
+                            <a href="%sajax/products/delete" class="btn btn-danger btn-xs delete" data-id="%s" onclick="deleteProduct(event)"><i class="fa fa-trash-o "></i></a>
+                        </td>
+                    </tr>
+                    ',
+                    $i['id'],
+                    $i['name'],
+                    $i['quantity'],
+                    $i['price'],
+                    sprintf("<img src='%s' style='width:100px ; height:50px'>", ROOT . "uploads/" . $i['main_image']),
+                    $i['cat_name'],
+                    sprintf(
+                    "<a href='%s' class='btn %s status' data-id='%s' onclick='editProductStatus(event)'>%s</a>",
+
+                    ROOT . "ajax/categories/edit_status",
+                    $i['status'] == 0 ? "btn-primary" : ($i['status'] == 1 ? "btn-success" : "btn-danger"),
+                    $i['id'],
+                    $i['status'] == 0 ? "Normal" : ($i['status'] == 1 ? "Sale" : "New"),
+                ),
+                    ROOT,
+                    $i['id'],
+                    ROOT,
+                    $i['id']
+                );
+            }
+            $res['data'] = $str;
+            $res['success'] = '1';
+        }
         $res = json_encode($res);
         echo $res;
     }
